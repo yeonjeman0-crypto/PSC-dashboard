@@ -587,19 +587,40 @@
         </div>
     </div>
 
+    <!-- Tabler Core JS -->
     <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
-    <!-- PSC Dashboard JS - FIXED VERSION -->
+    <!-- ApexCharts for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.44.0/dist/apexcharts.min.js"></script>
+    
+    <!-- PSC Dashboard FIXED - Contains all layout functions -->
     <script src="../assets/js/psc-dashboard-fixed.js"></script>
+    
     <script>
+        /**
+         * PSC Vessels Page with ApexCharts Integration
+         */
+        // Initialize vessels page on page load
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Initializing vessel page with real data...');
-            // Ensure the function exists before calling
-            if (typeof renderVesselManagementLayout === 'function') {
-                renderVesselManagementLayout();
-            } else {
-                console.error('renderVesselManagementLayout function not found - check script loading order');
-            }
+            console.log('🚀 Initializing PSC Vessels Page...');
+            
+            // Wait a bit for all scripts to load
+            setTimeout(async () => {
+                try {
+                    // Call the layout render function from psc-dashboard-fixed.js
+                    if (typeof renderVesselManagementLayout === 'function') {
+                        await renderVesselManagementLayout();
+                        console.log('✅ Vessel management layout initialized successfully');
+                    } else {
+                        console.error('❌ renderVesselManagementLayout function not found');
+                        console.log('Available window functions:', Object.keys(window).filter(key => key.includes('render')));
+                    }
+                } catch (error) {
+                    console.error('Error initializing vessels page:', error);
+                }
+            }, 100);
         });
+        
+        console.log('🚀 PSC Vessels Page ready');
     </script>
 </body>
 </html>

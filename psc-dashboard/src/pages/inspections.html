@@ -318,7 +318,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="d-flex py-1 align-items-center">
-                                                        <span class="avatar me-2" style="background-image: url(https://via.placeholder.com/32x32/6366f1/ffffff?text=SS)"></span>
+                                                        <span class="avatar me-2" style="background-color: #6366f1; color: white;">SS</span>
                                                         <div class="flex-fill">
                                                             <div class="font-weight-medium">SOO SHIN</div>
                                                             <div class="text-muted"><small>PC(T)C • SAMJOO</small></div>
@@ -351,7 +351,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="d-flex py-1 align-items-center">
-                                                        <span class="avatar me-2" style="background-image: url(https://via.placeholder.com/32x32/f43f5e/ffffff?text=DG)"></span>
+                                                        <span class="avatar me-2" style="background-color: #f43f5e; color: white;">DG</span>
                                                         <div class="flex-fill">
                                                             <div class="font-weight-medium">DAEBO GLADSTONE</div>
                                                             <div class="text-muted"><small>Bulk • DAEBO</small></div>
@@ -384,7 +384,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="d-flex py-1 align-items-center">
-                                                        <span class="avatar me-2" style="background-image: url(https://via.placeholder.com/32x32/8b5cf6/ffffff?text=YS)"></span>
+                                                        <span class="avatar me-2" style="background-color: #8b5cf6; color: white;">YS</span>
                                                         <div class="flex-fill">
                                                             <div class="font-weight-medium">YOUNG SHIN</div>
                                                             <div class="text-muted"><small>PC(T)C • SAMJOO</small></div>
@@ -417,7 +417,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="d-flex py-1 align-items-center">
-                                                        <span class="avatar me-2" style="background-image: url(https://via.placeholder.com/32x32/10b981/ffffff?text=SC)"></span>
+                                                        <span class="avatar me-2" style="background-color: #10b981; color: white;">SC</span>
                                                         <div class="flex-fill">
                                                             <div class="font-weight-medium">SJ COLOMBO</div>
                                                             <div class="text-muted"><small>Bulk • SAMJOO</small></div>
@@ -498,27 +498,64 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Tabler Core JS -->
     <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
     <!-- ApexCharts for data visualization -->
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <!-- PSC Dashboard Components -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.44.0/dist/apexcharts.min.js"></script>
+    <!-- PSC Integrated System -->
+    <script src="../assets/js/state-management.js"></script>
+    <script src="../assets/js/api-endpoints.js"></script>
+    <script src="../assets/js/performance-optimizer.js"></script>
+    <script src="../assets/js/module-integration.js"></script>
+    <!-- ChartSpecialist_Apex Implementation -->
+    <script src="../assets/js/chart-specialist-apex.js"></script>
+    <script src="../components/kpi-cards-apex.js"></script>
+    <script src="../assets/js/dashboard-integration-apex.js"></script>
+    
+    <!-- Legacy PSC Dashboard Components (for compatibility) -->
     <script src="../components/navigation.js"></script>
-    <script src="../components/kpi-cards.js"></script>
     <script src="../components/data-filters.js"></script>
     <script src="../components/chart-containers.js"></script>
-    <!-- PSC Dashboard JS - FIXED VERSION -->
+    
+    <!-- System Validation -->
+    <script src="../assets/js/system-integration-validator.js"></script>
+    <script src="../assets/js/validation-apex-charts.js"></script>
+    
+    <!-- PSC Dashboard FIXED - Contains all layout functions -->
     <script src="../assets/js/psc-dashboard-fixed.js"></script>
+    
     <script>
+        /**
+         * PSC Inspections Page with ApexCharts Integration
+         * All functions use proper camelCase naming conventions
+         */
+        // Initialize inspection page on page load
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Initializing inspection page with real data...');
-            // Ensure the function exists before calling
-            if (typeof renderInspectionListLayout === 'function') {
-                renderInspectionListLayout();
-            } else {
-                console.error('renderInspectionListLayout function not found - check script loading order');
-            }
+            console.log('🚀 Initializing PSC Inspections Page...');
+            
+            // Wait a bit for all scripts to load
+            setTimeout(async () => {
+                try {
+                    // Call the layout render function from psc-dashboard-fixed.js
+                    if (typeof renderInspectionListLayout === 'function') {
+                        await renderInspectionListLayout();
+                        console.log('✅ Inspection layout initialized successfully');
+                    } else {
+                        console.error('❌ renderInspectionListLayout function not found');
+                        console.log('Available window functions:', Object.keys(window).filter(key => key.includes('render')));
+                        
+                        // Try to load fallback
+                        if (typeof renderInspectionTableFallback === 'function') {
+                            renderInspectionTableFallback();
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error initializing inspections page:', error);
+                }
+            }, 100);
         });
+        
+        console.log('🚀 PSC Inspections Page with ChartSpecialist_Apex ready');
     </script>
 </body>
 </html>

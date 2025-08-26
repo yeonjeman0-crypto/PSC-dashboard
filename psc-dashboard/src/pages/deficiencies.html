@@ -73,19 +73,40 @@
             </div>
         </div>
     </div>
+    <!-- Tabler Core JS -->
     <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
-    <!-- PSC Dashboard JS - FIXED VERSION -->
+    <!-- ApexCharts for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.44.0/dist/apexcharts.min.js"></script>
+    
+    <!-- PSC Dashboard FIXED - Contains all layout functions -->
     <script src="../assets/js/psc-dashboard-fixed.js"></script>
+    
     <script>
+        /**
+         * PSC Deficiencies Page with ApexCharts Integration
+         */
+        // Initialize deficiencies page on page load
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Initializing deficiencies page with real data...');
-            // Ensure the function exists before calling
-            if (typeof renderDeficiencyAnalysisLayout === 'function') {
-                renderDeficiencyAnalysisLayout();
-            } else {
-                console.error('renderDeficiencyAnalysisLayout function not found - check script loading order');
-            }
+            console.log('🚀 Initializing PSC Deficiencies Page...');
+            
+            // Wait a bit for all scripts to load
+            setTimeout(async () => {
+                try {
+                    // Call the layout render function from psc-dashboard-fixed.js
+                    if (typeof renderDeficiencyAnalysisLayout === 'function') {
+                        await renderDeficiencyAnalysisLayout();
+                        console.log('✅ Deficiency analysis layout initialized successfully');
+                    } else {
+                        console.error('❌ renderDeficiencyAnalysisLayout function not found');
+                        console.log('Available window functions:', Object.keys(window).filter(key => key.includes('render')));
+                    }
+                } catch (error) {
+                    console.error('Error initializing deficiencies page:', error);
+                }
+            }, 100);
         });
+        
+        console.log('🚀 PSC Deficiencies Page ready');
     </script>
 </body>
 </html>

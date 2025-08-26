@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>PSC Dashboard - Final Validation Test</title>
+    <link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css" rel="stylesheet"/>
+    <style>
+        .test-result { margin: 10px 0; padding: 10px; border-radius: 5px; }
+        .pass { background-color: #d4edda; border-left: 5px solid #28a745; }
+        .fail { background-color: #f8d7da; border-left: 5px solid #dc3545; }
+        .info { background-color: #d1ecf1; border-left: 5px solid #17a2b8; }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>PSC Dashboard - Final Validation Test</h1>
+        <p>This test validates all critical functions and data integrity.</p>
+        
+        <div id="testResults">
+            <div class="test-result info">
+                <strong>Starting validation tests...</strong>
+            </div>
+        </div>
+        
+        <div class="mt-4">
+            <button class="btn btn-primary" onclick="runAllTests()">Run All Tests</button>
+            <button class="btn btn-secondary" onclick="clearResults()">Clear Results</button>
+        </div>
+    </div>
+
+    <!-- Scripts (matching dashboard structure) -->
+    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.44.0/dist/apexcharts.min.js"></script>
+    <script src="../psc-dashboard/src/assets/js/psc-dashboard-fixed.js"></script>
+    
+    <script>
+        let testResults = [];
+        
+        function addTestResult(name, passed, details = '') {
+            testResults.push({ name, passed, details });
+            
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `test-result ${passed ? 'pass' : 'fail'}`;
+            resultDiv.innerHTML = `
+                <strong>${passed ? '✅' : '❌'} ${name}</strong>
+                ${details ? `<br><small>${details}</small>` : ''}
+            `;
+            
+            document.getElementById('testResults').appendChild(resultDiv);
+        }
+        
+        function clearResults() {
+            document.getElementById('testResults').innerHTML = '<div class="test-result info"><strong>Ready to run tests...</strong></div>';
+            testResults = [];
+        }
+        
+        async function runAllTests() {
+            clearResults();
+            
+            // Test 1: Core Functions Exist
+            addTestResult(
+                'Core Functions Exist', 
+                typeof renderDashboardLayout === 'function' &&
+                typeof renderInspectionListLayout === 'function' &&
+                typeof renderVesselManagementLayout === 'function' &&
+                typeof renderDeficiencyAnalysisLayout === 'function',
+                'All main layout rendering functions are defined'
+            );
+            
+            // Test 2: ApexCharts Library
+            addTestResult(
+                'ApexCharts Library Loaded',
+                typeof ApexCharts !== 'undefined',
+                'ApexCharts library is available for chart rendering'
+            );
+            
+            // Test 3: PSCInspectionManager Class
+            addTestResult(
+                'PSCInspectionManager Class Available',
+                typeof PSCInspectionManager === 'function',
+                'PSCInspectionManager class is defined and accessible'
+            );
+            
+            // Test 4: Try Data Loading
+            try {
+                const manager = new PSCInspectionManager();
+                await manager.initialize();
+                addTestResult(
+                    'Data Loading Test',
+                    manager.inspectionData.length > 0,
+                    `Loaded ${manager.inspectionData.length} inspection records`
+                );
+            } catch (error) {
+                addTestResult(
+                    'Data Loading Test',
+                    false,
+                    `Error: ${error.message}`
+                );
+            }
+            
+            // Test 5: Function Exports
+            const requiredFunctions = [
+                'applyInspectionFilters',
+                'sortInspections', 
+                'showInspectionDetail',
+                'updateInspectionData',
+                'exportAllInspections'
+            ];
+            
+            const missingFunctions = requiredFunctions.filter(func => typeof window[func] !== 'function');
+            addTestResult(
+                'Function Exports',
+                missingFunctions.length === 0,
+                missingFunctions.length > 0 ? `Missing: ${missingFunctions.join(', ')}` : 'All required functions exported'
+            );
+            
+            // Test 6: Data Integrity Check
+            try {
+                const response = await fetch('../processed_data/core_master/vessel_master.json');
+                if (response.ok) {
+                    const data = await response.json();
+                    addTestResult(
+                        'Vessel Data Integrity',
+                        data.total_vessels === 14,
+                        `Found ${data.total_vessels} vessels (expected: 14)`
+                    );
+                } else {
+                    addTestResult('Vessel Data Integrity', false, 'Could not load vessel data');
+                }
+            } catch (error) {
+                addTestResult('Vessel Data Integrity', false, `Error: ${error.message}`);
+            }
+            
+            // Test 7: Inspection Data Integrity
+            try {
+                const response = await fetch('../processed_data/operational/inspection_records.json');
+                if (response.ok) {
+                    const data = await response.json();
+                    addTestResult(
+                        'Inspection Data Integrity',
+                        data.total_inspections === 30,
+                        `Found ${data.total_inspections} inspections (expected: 30)`
+                    );
+                } else {
+                    addTestResult('Inspection Data Integrity', false, 'Could not load inspection data');
+                }
+            } catch (error) {
+                addTestResult('Inspection Data Integrity', false, `Error: ${error.message}`);
+            }
+            
+            // Test 8: Deficiency Data Integrity  
+            try {
+                const response = await fetch('../processed_data/operational/deficiency_records.json');
+                if (response.ok) {
+                    const data = await response.json();
+                    addTestResult(
+                        'Deficiency Data Integrity',
+                        data.total_deficiencies === 87,
+                        `Found ${data.total_deficiencies} deficiencies (expected: 87)`
+                    );
+                } else {
+                    addTestResult('Deficiency Data Integrity', false, 'Could not load deficiency data');
+                }
+            } catch (error) {
+                addTestResult('Deficiency Data Integrity', false, `Error: ${error.message}`);
+            }
+            
+            // Summary
+            const passedTests = testResults.filter(test => test.passed).length;
+            const totalTests = testResults.length;
+            
+            const summaryDiv = document.createElement('div');
+            summaryDiv.className = `test-result ${passedTests === totalTests ? 'pass' : 'info'}`;
+            summaryDiv.innerHTML = `<strong>Test Summary: ${passedTests}/${totalTests} tests passed</strong>`;
+            document.getElementById('testResults').appendChild(summaryDiv);
+            
+            console.log('🎯 Validation Complete:', { passed: passedTests, total: totalTests, results: testResults });
+        }
+        
+        // Auto-run tests when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 PSC Dashboard Final Validation Tool Ready');
+            setTimeout(() => runAllTests(), 1000);
+        });
+    </script>
+</body>
+</html>
