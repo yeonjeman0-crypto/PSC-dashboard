@@ -512,7 +512,12 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Initializing inspection page with real data...');
-            renderInspectionListLayout();
+            // Ensure the function exists before calling
+            if (typeof renderInspectionListLayout === 'function') {
+                renderInspectionListLayout();
+            } else {
+                console.error('renderInspectionListLayout function not found - check script loading order');
+            }
         });
     </script>
 </body>

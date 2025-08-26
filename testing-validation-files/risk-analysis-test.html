@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PSC Risk Analysis Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .vessel { margin: 10px 0; padding: 15px; border: 1px solid #ddd; border-radius: 8px; }
+        .risk-high { border-left: 4px solid #dc2626; background: #fef2f2; }
+        .risk-elevated { border-left: 4px solid #f59e0b; background: #fffbeb; }
+        .risk-moderate { border-left: 4px solid #eab308; background: #fefce8; }
+        .risk-low { border-left: 4px solid #10b981; background: #f0fdfa; }
+        .risk-score { font-size: 24px; font-weight: bold; margin-right: 10px; }
+        .factors { font-size: 14px; color: #666; margin-top: 8px; }
+    </style>
+</head>
+<body>
+    <h1>PSC Maritime Risk Assessment Test</h1>
+    <p><strong>Risk Formula:</strong> Risk Score = A×0.4 + H×0.4 + M×0.2 (0-100 scale)</p>
+    <ul>
+        <li><strong>A Factor:</strong> Age Factor (vessel age normalized)</li>
+        <li><strong>H Factor:</strong> History Factor (deficiency severity)</li>
+        <li><strong>M Factor:</strong> MOU Factor (flag state performance)</li>
+    </ul>
+    
+    <div id="vesselResults"></div>
+
+    <script>
+        // Real vessel data
+        const REAL_VESSEL_DATA = [
+            {
+                "vessel_id": "VES001", "vessel_name": "AH SHIN", "age_years": 26.6, 
+                "inspection_history": {"total_inspections": 3, "total_deficiencies": 3, "detention_count": 0},
+                "flag_state": "Panama", "vessel_type": "PC(T)C"
+            },
+            {
+                "vessel_id": "VES003", "vessel_name": "YOUNG SHIN", "age_years": 33.5,
+                "inspection_history": {"total_inspections": 1, "total_deficiencies": 8, "detention_count": 1},
+                "flag_state": "Panama", "vessel_type": "PC(T)C"
+            },
+            {
+                "vessel_id": "VES008", "vessel_name": "SEA COEN", "age_years": 20.1,
+                "inspection_history": {"total_inspections": 1, "total_deficiencies": 10, "detention_count": 1},
+                "flag_state": "Marshall Islands", "vessel_type": "Bulk"
+            },
+            {
+                "vessel_id": "VES011", "vessel_name": "SJ BUSAN", "age_years": 15.6,
+                "inspection_history": {"total_inspections": 2, "total_deficiencies": 0, "detention_count": 0},
+                "flag_state": "Korea", "vessel_type": "Bulk"
+            },
+            {
+                "vessel_id": "VES014", "vessel_name": "DAEBO GLADSTONE", "age_years": 12.6,
+                "inspection_history": {"total_inspections": 1, "total_deficiencies": 2, "detention_count": 0},
+                "flag_state": "Panama", "vessel_type": "Bulk"
+            }
+        ];
+
+        // Risk calculation functions
+        function calculateAgeFactor(vesselAge) {
+            if (vesselAge <= 0) return 0;
+            return Math.min(vesselAge / 40, 1.0);
+        }
+        
+        function calculateDeficiencyFactor(inspectionHistory) {
+            if (!inspectionHistory || inspectionHistory.total_inspections === 0) {
+                return 0.3;
+            }
+            
+            const avgDeficiencies = inspectionHistory.total_deficiencies / inspectionHistory.total_inspections;
+            const detentionRate = inspectionHistory.detention_count / inspectionHistory.total_inspections;
+            
+            let baseFactor = Math.min(avgDeficiencies / 10, 1.0);
+            const detentionPenalty = detentionRate * 0.5;
+            
+            let hFactor = baseFactor + detentionPenalty;
+            return Math.min(Math.max(hFactor, 0), 1.0);
+        }
+        
+        function calculateMouFactor(flagState) {
+            const flagRiskMap = {
+                'Korea': 0.2,
+                'Japan': 0.2,
+                'Singapore': 0.2,
+                'Marshall Islands': 0.4,
+                'Panama': 0.5,
+                'Malta': 0.4
+            };
+            
+            return flagRiskMap[flagState] || 0.5;
+        }
+        
+        function calculateRiskScore(vesselData) {
+            const aFactor = calculateAgeFactor(vesselData.age_years);
+            const hFactor = calculateDeficiencyFactor(vesselData.inspection_history);
+            const mFactor = calculateMouFactor(vesselData.flag_state);
+            
+            const riskScore = (aFactor * 0.4) + (hFactor * 0.4) + (mFactor * 0.2);
+            return Math.round(riskScore * 100);
+        }
+
+        function getRiskLevel(riskScore) {
+            if (riskScore >= 81) return 'Critical';
+            if (riskScore >= 61) return 'High';
+            if (riskScore >= 41) return 'Elevated';
+            if (riskScore >= 21) return 'Moderate';
+            return 'Low';
+        }
+
+        function getRiskClass(riskScore) {
+            if (riskScore >= 61) return 'risk-high';
+            if (riskScore >= 41) return 'risk-elevated';
+            if (riskScore >= 21) return 'risk-moderate';
+            return 'risk-low';
+        }
+
+        // Calculate and display results
+        const container = document.getElementById('vesselResults');
+        const results = REAL_VESSEL_DATA.map(vessel => {
+            const riskScore = calculateRiskScore(vessel);
+            const aFactor = Math.round(calculateAgeFactor(vessel.age_years) * 100);
+            const hFactor = Math.round(calculateDeficiencyFactor(vessel.inspection_history) * 100);
+            const mFactor = Math.round(calculateMouFactor(vessel.flag_state) * 100);
+            const riskLevel = getRiskLevel(riskScore);
+            const riskClass = getRiskClass(riskScore);
+
+            return {
+                ...vessel,
+                risk_score: riskScore,
+                a_factor: aFactor,
+                h_factor: hFactor,
+                m_factor: mFactor,
+                risk_level: riskLevel,
+                risk_class: riskClass
+            };
+        });
+
+        // Sort by risk score descending
+        results.sort((a, b) => b.risk_score - a.risk_score);
+
+        // Display results
+        container.innerHTML = results.map(vessel => `
+            <div class="vessel ${vessel.risk_class}">
+                <div>
+                    <span class="risk-score">${vessel.risk_score}</span>
+                    <strong>${vessel.vessel_name}</strong>
+                    <span style="background: #6366f1; color: white; padding: 2px 6px; border-radius: 4px; font-size: 12px; margin-left: 10px;">${vessel.risk_level}</span>
+                </div>
+                <div style="margin: 5px 0;">
+                    ${vessel.vessel_type} • ${vessel.flag_state} • Age: ${vessel.age_years} years
+                </div>
+                <div class="factors">
+                    A Factor: ${vessel.a_factor}/100 (Age: ${vessel.age_years}y) | 
+                    H Factor: ${vessel.h_factor}/100 (${vessel.inspection_history.total_deficiencies} deficiencies in ${vessel.inspection_history.total_inspections} inspections, ${vessel.inspection_history.detention_count} detentions) | 
+                    M Factor: ${vessel.m_factor}/100 (${vessel.flag_state} flag)
+                </div>
+                <div style="font-size: 12px; color: #888; margin-top: 5px;">
+                    Formula: ${vessel.a_factor}×0.4 + ${vessel.h_factor}×0.4 + ${vessel.m_factor}×0.2 = ${vessel.risk_score}
+                </div>
+            </div>
+        `).join('');
+
+        // Display summary
+        const criticalCount = results.filter(v => v.risk_score >= 81).length;
+        const highCount = results.filter(v => v.risk_score >= 61 && v.risk_score < 81).length;
+        const elevatedCount = results.filter(v => v.risk_score >= 41 && v.risk_score < 61).length;
+        const moderateCount = results.filter(v => v.risk_score >= 21 && v.risk_score < 41).length;
+        const lowCount = results.filter(v => v.risk_score < 21).length;
+        const avgScore = Math.round(results.reduce((sum, v) => sum + v.risk_score, 0) / results.length);
+
+        container.insertAdjacentHTML('afterbegin', `
+            <div style="background: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                <h3>Fleet Risk Summary (Sample 5 vessels)</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; margin: 10px 0;">
+                    <div><strong>Critical:</strong> ${criticalCount}</div>
+                    <div><strong>High:</strong> ${highCount}</div>
+                    <div><strong>Elevated:</strong> ${elevatedCount}</div>
+                    <div><strong>Moderate:</strong> ${moderateCount}</div>
+                    <div><strong>Low:</strong> ${lowCount}</div>
+                    <div><strong>Fleet Avg:</strong> ${avgScore}</div>
+                </div>
+            </div>
+        `);
+
+        console.log('Risk Analysis Test Results:', results);
+    </script>
+</body>
+</html>
