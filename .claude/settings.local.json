@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(where claude)",
+      "Bash(claude mcp:*)",
+      "Bash(claude agents add:*)",
+      "Bash(claude agents --help)",
+      "Bash(node:*)",
+      "Bash(jq:*)",
+      "Bash(for page in \"C:\\Users\\sicka\\Downloads\\새 폴더\\psc-dashboard\\src\\pages\"/*.html)",
+      "Bash(done)",
+      "Bash(dir:*)",
+      "Bash(git add:*)",
+      "Bash(git remote add:*)"
+    ],
+    "deny": [],
+    "ask": [],
+    "additionalDirectories": [
+      "C:\\Users\\sicka\\Downloads"
+    ]
+  }
+}

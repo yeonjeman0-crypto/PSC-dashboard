@@ -717,6 +717,9 @@
     <script src="../assets/js/system-integration-validator.js"></script>
     <script src="../assets/js/validation-apex-charts.js"></script>
     
+    <!-- PSC Dashboard FIXED - Contains all layout functions -->
+    <script src="../assets/js/psc-dashboard-fixed.js"></script>
+    
     <script>
         /**
          * PSC Dashboard with ApexCharts Integration
@@ -724,8 +727,18 @@
          * Real-time data integration with actual PSC data
          */
         
-        // Dashboard will be initialized automatically by dashboard-integration-apex.js
-        // Functions are made globally available for backward compatibility
+        // Initialize dashboard on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Initializing PSC Dashboard...');
+            
+            // Call the layout render function from psc-dashboard-fixed.js
+            if (typeof renderDashboardLayout === 'function') {
+                renderDashboardLayout();
+                console.log('✅ Dashboard layout initialized successfully');
+            } else {
+                console.error('❌ renderDashboardLayout function not found');
+            }
+        });
         
         console.log('🚀 PSC Dashboard with ChartSpecialist_Apex ready');
         

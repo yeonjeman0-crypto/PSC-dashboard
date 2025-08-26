@@ -2356,7 +2356,6 @@ function handlePortRowClick(portName) {
     console.log('🏗️ 항만 행 클릭:', portName);
     filterByPort(portName);
 }
-}
 
 /**
  * MOU 지역별 클러스터링 함수

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>PSC Dashboard - Fleet Management System</title>
+    <!-- Tabler Core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/@tabler/icons@2.44.0/icons-sprite.svg" rel="stylesheet"/>
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --psc-inspections: #6366f1;
+            --psc-deficiencies: #f43f5e;
+            --psc-detention: #8b5cf6;
+            --psc-success: #10b981;
+            --psc-warning: #f59e0b;
+            --psc-info: #3b82f6;
+        }
+        .card { margin-bottom: 1rem; }
+        .kpi-value { font-size: 2rem; font-weight: bold; margin: 0.5rem 0; }
+        .kpi-label { color: #6c757d; font-size: 0.875rem; }
+        .chart-container { height: 350px; }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- Navigation -->
+        <aside class="navbar navbar-vertical navbar-expand-lg" data-bs-theme="dark">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar-menu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <h1 class="navbar-brand navbar-brand-autodark">
+                    <a href="#">PSC Dashboard</a>
+                </h1>
+                
+                <div class="collapse navbar-collapse" id="sidebar-menu">
+                    <ul class="navbar-nav pt-lg-3">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">
+                                <span class="nav-link-title">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span class="nav-link-title">Inspections (30)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span class="nav-link-title">Non-conformities (87)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span class="nav-link-title">Vessels (14)</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="page-wrapper">
+            <!-- Page Header -->
+            <div class="page-header d-print-none">
+                <div class="container-xl">
+                    <div class="row g-2 align-items-center">
+                        <div class="col">
+                            <h2 class="page-title">PSC Dashboard - DORIKO Fleet</h2>
+                            <div class="text-muted mt-1">Fleet Overview - 14 Vessels Active</div>
+                        </div>
+                        <div class="col-auto ms-auto d-print-none">
+                            <button class="btn btn-primary" onclick="loadDashboardData()">
+                                Refresh Data
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page Body -->
+            <div class="page-body">
+                <div class="container-xl">
+                    <!-- KPI Cards -->
+                    <div class="row row-cards mb-3">
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <div class="kpi-label">Total Vessels</div>
+                                    <div class="kpi-value" style="color: var(--psc-success)">14</div>
+                                    <div class="small">7 PC(T)C | 7 Bulk</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <div class="kpi-label">Total Inspections</div>
+                                    <div class="kpi-value" style="color: var(--psc-inspections)">30</div>
+                                    <div class="small">2025 YTD</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <div class="kpi-label">Total Non-conformities</div>
+                                    <div class="kpi-value" style="color: var(--psc-deficiencies)">87</div>
+                                    <div class="small">Avg: 2.9 per inspection</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <div class="kpi-label">Detentions</div>
+                                    <div class="kpi-value" style="color: var(--psc-detention)">4</div>
+                                    <div class="small">13.3% detention rate</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts -->
+                    <div class="row row-cards">
+                        <!-- Monthly Inspections -->
+                        <div class="col-lg-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Monthly Inspection Trend</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div id="monthlyChart" class="chart-container"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Fleet Composition -->
+                        <div class="col-lg-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Fleet Composition</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div id="fleetChart" class="chart-container"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Top Non-conformity Codes -->
+                    <div class="row row-cards mt-3">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Top 10 Non-conformity Codes</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div id="deficiencyChart" class="chart-container"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Inspections Table -->
+                    <div class="row row-cards mt-3">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Recent Inspections</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-vcenter">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Vessel</th>
+                                                    <th>Port</th>
+                                                    <th>MOU</th>
+                                                    <th>Non-conformities</th>
+                                                    <th>Outcome</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="inspectionTable">
+                                                <tr>
+                                                    <td>2025-08-11</td>
+                                                    <td><strong>SOO SHIN</strong></td>
+                                                    <td>Busan</td>
+                                                    <td><span class="badge bg-success">Tokyo MoU</span></td>
+                                                    <td><span class="badge bg-warning">5</span></td>
+                                                    <td><span class="badge bg-warning">Non-conformities Found</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2025-07-10</td>
+                                                    <td><strong>DAEBO GLADSTONE</strong></td>
+                                                    <td>Singapore</td>
+                                                    <td><span class="badge bg-success">Tokyo MoU</span></td>
+                                                    <td><span class="badge bg-warning">2</span></td>
+                                                    <td><span class="badge bg-warning">Non-conformities Found</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2025-05-26</td>
+                                                    <td><strong>YOUNG SHIN</strong></td>
+                                                    <td>Tokyo</td>
+                                                    <td><span class="badge bg-success">Tokyo MoU</span></td>
+                                                    <td><span class="badge bg-danger">8</span></td>
+                                                    <td><span class="badge bg-danger">Detained</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2025-04-30</td>
+                                                    <td><strong>HAE SHIN</strong></td>
+                                                    <td>Rotterdam</td>
+                                                    <td><span class="badge bg-primary">Paris MoU</span></td>
+                                                    <td><span class="badge bg-danger">7</span></td>
+                                                    <td><span class="badge bg-danger">Detained</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2025-02-13</td>
+                                                    <td><strong>SJ COLOMBO</strong></td>
+                                                    <td>Colombo</td>
+                                                    <td><span class="badge bg-info">Indian Ocean MoU</span></td>
+                                                    <td><span class="badge bg-success">0</span></td>
+                                                    <td><span class="badge bg-success">Clean</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.44.0/dist/apexcharts.min.js"></script>
+    
+    <script>
+        // Static PSC Data (embedded for standalone operation)
+        const PSC_DATA = {
+            inspections: [
+                { month: 'Jan', count: 5, deficiencies: 8, detentions: 1 },
+                { month: 'Feb', count: 12, deficiencies: 35, detentions: 2 },
+                { month: 'Mar', count: 0, deficiencies: 0, detentions: 0 },
+                { month: 'Apr', count: 1, deficiencies: 7, detentions: 1 },
+                { month: 'May', count: 1, deficiencies: 8, detentions: 0 },
+                { month: 'Jun', count: 0, deficiencies: 0, detentions: 0 },
+                { month: 'Jul', count: 1, deficiencies: 2, detentions: 0 },
+                { month: 'Aug', count: 10, deficiencies: 27, detentions: 0 }
+            ],
+            deficiencyCodes: [
+                { code: '15150', name: 'Fire Safety', count: 15 },
+                { code: '07106', name: 'Navigation Safety', count: 12 },
+                { code: '11108', name: 'Life Saving Appliances', count: 8 },
+                { code: '10105', name: 'Radio Communications', count: 7 },
+                { code: '14604', name: 'Emergency Systems', count: 6 },
+                { code: '13101', name: 'Certificates & Documentation', count: 5 },
+                { code: '01220', name: 'Crew Certificates', count: 4 },
+                { code: '14901', name: 'MARPOL Annex I', count: 3 },
+                { code: '02108', name: 'ISM', count: 3 },
+                { code: '18407', name: 'MLC 2006', count: 2 }
+            ],
+            fleet: {
+                pctc: 7,
+                bulk: 7
+            }
+        };
+
+        // Initialize Dashboard
+        function initDashboard() {
+            console.log('Initializing PSC Dashboard...');
+            
+            // Render Monthly Chart
+            const monthlyOptions = {
+                series: [{
+                    name: 'Inspections',
+                    data: PSC_DATA.inspections.map(i => i.count)
+                }, {
+                    name: 'Non-conformities',
+                    data: PSC_DATA.inspections.map(i => i.deficiencies)
+                }],
+                chart: {
+                    type: 'bar',
+                    height: 350,
+                    toolbar: { show: false }
+                },
+                colors: ['#6366f1', '#f43f5e'],
+                plotOptions: {
+                    bar: {
+                        borderRadius: 4
+                    }
+                },
+                xaxis: {
+                    categories: PSC_DATA.inspections.map(i => i.month)
+                },
+                yaxis: {
+                    title: { text: 'Count' }
+                },
+                legend: {
+                    position: 'top'
+                }
+            };
+            new ApexCharts(document.getElementById('monthlyChart'), monthlyOptions).render();
+            
+            // Render Fleet Composition
+            const fleetOptions = {
+                series: [PSC_DATA.fleet.pctc, PSC_DATA.fleet.bulk],
+                chart: {
+                    type: 'donut',
+                    height: 350
+                },
+                labels: ['PC(T)C', 'Bulk Carrier'],
+                colors: ['#6366f1', '#3b82f6'],
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            size: '70%',
+                            labels: {
+                                show: true,
+                                total: {
+                                    show: true,
+                                    label: 'Total Vessels',
+                                    formatter: () => '14'
+                                }
+                            }
+                        }
+                    }
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            };
+            new ApexCharts(document.getElementById('fleetChart'), fleetOptions).render();
+            
+            // Render Top Non-conformity Codes
+            const deficiencyOptions = {
+                series: [{
+                    name: 'Occurrences',
+                    data: PSC_DATA.deficiencyCodes.map(d => d.count)
+                }],
+                chart: {
+                    type: 'bar',
+                    height: 350,
+                    toolbar: { show: false }
+                },
+                colors: ['#f43f5e'],
+                plotOptions: {
+                    bar: {
+                        borderRadius: 4,
+                        horizontal: true
+                    }
+                },
+                xaxis: {
+                    categories: PSC_DATA.deficiencyCodes.map(d => `${d.code} - ${d.name}`)
+                },
+                yaxis: {
+                    title: { text: 'Non-conformity Code' }
+                },
+                dataLabels: {
+                    enabled: true
+                }
+            };
+            new ApexCharts(document.getElementById('deficiencyChart'), deficiencyOptions).render();
+            
+            console.log('✅ Dashboard initialized successfully');
+        }
+
+        // Load Dashboard Data
+        function loadDashboardData() {
+            console.log('Refreshing dashboard data...');
+            // In a real implementation, this would fetch from the backend
+            location.reload();
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', initDashboard);
+    </script>
+</body>
+</html>

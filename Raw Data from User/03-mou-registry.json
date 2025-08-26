@@ -1,0 +1,350 @@
+{
+  "schema_version": "v1.0.0",
+  "generated_at": "2025-08-24T12:00:00.000Z",
+  "data_source": "Official MOU Registry + PSC inspection data analysis",
+  "total_mou_regions": 9,
+  "official_mous": 9,
+  "non_mou_entities": 1,
+  "registry": {
+    "official_mous": [
+      {
+        "mou_code": "PARIS",
+        "mou_name": "Paris MoU",
+        "full_name": "Memorandum of Understanding on Port State Control in the North Atlantic Region",
+        "established": 1982,
+        "headquarters": "The Hague, Netherlands",
+        "region": "North Atlantic",
+        "member_countries": 27,
+        "website": "https://www.parismou.org",
+        "inspection_regime": "THETIS",
+        "risk_assessment": "NIR (New Inspection Regime)",
+        "inspection_frequency": "Risk-based targeting",
+        "detention_threshold": "High",
+        "classification": "Official-MOU",
+        "geographical_coverage": [
+          "European Union",
+          "European Economic Area",
+          "Russian Federation"
+        ],
+        "inspection_statistics_2025": {
+          "inspections_in_data": 2,
+          "vessels_inspected": 2,
+          "deficiencies_found": 5,
+          "detentions": 0,
+          "detention_rate": 0.0
+        }
+      },
+      {
+        "mou_code": "TOKYO",
+        "mou_name": "Tokyo MoU",
+        "full_name": "Memorandum of Understanding on Port State Control in the Asia-Pacific Region",
+        "established": 1993,
+        "headquarters": "Tokyo, Japan",
+        "region": "Asia-Pacific",
+        "member_countries": 18,
+        "website": "https://www.tokyo-mou.org",
+        "inspection_regime": "APCIS",
+        "risk_assessment": "Ships Risk Profile (SRP)",
+        "inspection_frequency": "Risk-based targeting",
+        "detention_threshold": "High",
+        "classification": "Official-MOU",
+        "geographical_coverage": [
+          "East Asia",
+          "Southeast Asia",
+          "Pacific Islands",
+          "Australia",
+          "New Zealand"
+        ],
+        "inspection_statistics_2025": {
+          "inspections_in_data": 12,
+          "vessels_inspected": 8,
+          "deficiencies_found": 46,
+          "detentions": 2,
+          "detention_rate": 16.7
+        }
+      },
+      {
+        "mou_code": "INDIAN_OCEAN",
+        "mou_name": "Indian Ocean MoU",
+        "full_name": "Memorandum of Understanding on Port State Control for the Indian Ocean Region",
+        "established": 1998,
+        "headquarters": "New Delhi, India",
+        "region": "Indian Ocean",
+        "member_countries": 16,
+        "website": "https://www.iomou.org",
+        "inspection_regime": "APCIS (shared with Tokyo MoU)",
+        "risk_assessment": "Ships Risk Profile (SRP)",
+        "inspection_frequency": "Risk-based targeting",
+        "detention_threshold": "Medium-High",
+        "classification": "Official-MOU",
+        "geographical_coverage": [
+          "Indian Ocean states",
+          "East Africa",
+          "South Asia",
+          "Middle East"
+        ],
+        "inspection_statistics_2025": {
+          "inspections_in_data": 0,
+          "vessels_inspected": 0,
+          "deficiencies_found": 0,
+          "detentions": 0,
+          "detention_rate": 0.0
+        }
+      },
+      {
+        "mou_code": "BLACK_SEA",
+        "mou_name": "Black Sea MoU",
+        "full_name": "Memorandum of Understanding on Port State Control in the Black Sea Region",
+        "established": 2000,
+        "headquarters": "Istanbul, Turkey",
+        "region": "Black Sea",
+        "member_countries": 6,
+        "website": "https://www.bsmou.org",
+        "inspection_regime": "Black Sea Information System",
+        "risk_assessment": "Risk-based targeting",
+        "inspection_frequency": "Priority vessels",
+        "detention_threshold": "Medium",
+        "classification": "Official-MOU",
+        "geographical_coverage": [
+          "Black Sea littoral states",
+          "Turkey",
+          "Romania",
+          "Bulgaria",
+          "Georgia",
+          "Ukraine",
+          "Russian Federation"
+        ],
+        "inspection_statistics_2025": {
+          "inspections_in_data": 0,
+          "vessels_inspected": 0,
+          "deficiencies_found": 0,
+          "detentions": 0,
+          "detention_rate": 0.0
+        }
+      },
+      {
+        "mou_code": "MEDITERRANEAN",
+        "mou_name": "Mediterranean MoU",
+        "full_name": "Memorandum of Understanding on Port State Control in the Mediterranean Region",
+        "established": 1997,
+        "headquarters": "Alexandria, Egypt",
+        "region": "Mediterranean",
+        "member_countries": 10,
+        "website": "https://www.medmou.org",
+        "inspection_regime": "MEDIS",
+        "risk_assessment": "Risk-based targeting",
+        "inspection_frequency": "Priority vessels",
+        "detention_threshold": "Medium",
+        "classification": "Official-MOU",
+        "geographical_coverage": [
+          "Mediterranean Sea countries",
+          "North Africa",
+          "Middle East Mediterranean"
+        ],
+        "inspection_statistics_2025": {
+          "inspections_in_data": 1,
+          "vessels_inspected": 1,
+          "deficiencies_found": 4,
+          "detentions": 0,
+          "detention_rate": 0.0
+        }
+      },
+      {
+        "mou_code": "RIYADH",
+        "mou_name": "Riyadh MoU",
+        "full_name": "Memorandum of Understanding on Port State Control for the Gulf Region",
+        "established": 2004,
+        "headquarters": "Riyadh, Saudi Arabia",
+        "region": "Arabian Gulf",
+        "member_countries": 6,
+        "website": "https://www.riyadhmou.org",
+        "inspection_regime": "Gulf Information System",
+        "risk_assessment": "Priority targeting",
+        "inspection_frequency": "Risk-based",
+        "detention_threshold": "Medium",
+        "classification": "Official-MOU",
+        "geographical_coverage": [
+          "Gulf Cooperation Council countries",
+          "Saudi Arabia",
+          "UAE",
+          "Kuwait",
+          "Qatar",
+          "Bahrain",
+          "Oman"
+        ],
+        "inspection_statistics_2025": {
+          "inspections_in_data": 1,
+          "vessels_inspected": 1,
+          "deficiencies_found": 1,
+          "detentions": 0,
+          "detention_rate": 0.0
+        }
+      },
+      {
+        "mou_code": "ABUJA",
+        "mou_name": "Abuja MoU",
+        "full_name": "Memorandum of Understanding on Port State Control for West and Central Africa",
+        "established": 1999,
+        "headquarters": "Abuja, Nigeria",
+        "region": "West and Central Africa",
+        "member_countries": 22,
+        "website": "https://www.abujamou.com",
+        "inspection_regime": "African Information System",
+        "risk_assessment": "Basic targeting",
+        "inspection_frequency": "Capacity-based",
+        "detention_threshold": "Medium-Low",
+        "classification": "Official-MOU",
+        "geographical_coverage": [
+          "West Africa",
+          "Central Africa",
+          "Atlantic coastline"
+        ],
+        "inspection_statistics_2025": {
+          "inspections_in_data": 0,
+          "vessels_inspected": 0,
+          "deficiencies_found": 0,
+          "detentions": 0,
+          "detention_rate": 0.0
+        }
+      },
+      {
+        "mou_code": "CARIBBEAN",
+        "mou_name": "Caribbean MoU",
+        "full_name": "Memorandum of Understanding on Port State Control in the Caribbean Region",
+        "established": 1996,
+        "headquarters": "Bridgetown, Barbados",
+        "region": "Caribbean",
+        "member_countries": 18,
+        "website": "https://www.caribbeanmou.org",
+        "inspection_regime": "CASNET",
+        "risk_assessment": "Basic targeting",
+        "inspection_frequency": "Capacity-based",
+        "detention_threshold": "Medium-Low",
+        "classification": "Official-MOU",
+        "geographical_coverage": [
+          "Caribbean Sea",
+          "Caribbean islands",
+          "Central America coastal"
+        ],
+        "inspection_statistics_2025": {
+          "inspections_in_data": 0,
+          "vessels_inspected": 0,
+          "deficiencies_found": 0,
+          "detentions": 0,
+          "detention_rate": 0.0
+        }
+      },
+      {
+        "mou_code": "VINA_DEL_MAR",
+        "mou_name": "Viña del Mar Agreement",
+        "full_name": "Latin American Agreement on Port State Control of Vessels",
+        "established": 1992,
+        "headquarters": "Buenos Aires, Argentina",
+        "region": "South America",
+        "member_countries": 14,
+        "website": "https://www.acuerdolatino.int",
+        "inspection_regime": "LAPIS",
+        "risk_assessment": "Basic targeting",
+        "inspection_frequency": "Capacity-based",
+        "detention_threshold": "Medium-Low",
+        "classification": "Official-MOU",
+        "geographical_coverage": [
+          "South America",
+          "Pacific coast",
+          "Atlantic coast"
+        ],
+        "inspection_statistics_2025": {
+          "inspections_in_data": 0,
+          "vessels_inspected": 0,
+          "deficiencies_found": 0,
+          "detentions": 0,
+          "detention_rate": 0.0
+        }
+      }
+    ],
+    "non_mou_entities": [
+      {
+        "entity_code": "USCG",
+        "entity_name": "U.S. Coast Guard",
+        "full_name": "United States Coast Guard Port State Control",
+        "country": "United States",
+        "established": 1970,
+        "headquarters": "Washington, D.C., USA",
+        "region": "United States",
+        "inspection_regime": "MISLE",
+        "risk_assessment": "Coast Guard targeting matrix",
+        "inspection_frequency": "Risk-based + random",
+        "detention_threshold": "Variable",
+        "classification": "Non-MOU",
+        "authority": "National maritime authority",
+        "legal_basis": "U.S. federal law and international conventions",
+        "geographical_coverage": [
+          "United States ports",
+          "U.S. territorial waters"
+        ],
+        "inspection_statistics_2025": {
+          "inspections_in_data": 2,
+          "vessels_inspected": 2,
+          "deficiencies_found": 2,
+          "detentions": 0,
+          "detention_rate": 0.0
+        },
+        "notes": "Independent national PSC program, not part of any MoU"
+      }
+    ]
+  },
+  "regional_analysis": {
+    "active_regions_in_data": 5,
+    "inspection_distribution": {
+      "Tokyo": 12,
+      "USCG": 2,
+      "Paris": 2,
+      "Mediterranean": 1,
+      "Riyadh": 1
+    },
+    "detention_by_region": {
+      "Tokyo": 2,
+      "USCG": 0,
+      "Paris": 0,
+      "Mediterranean": 0,
+      "Riyadh": 0
+    },
+    "regional_performance": {
+      "most_active": "Tokyo MoU (40% of inspections)",
+      "highest_detention_rate": "Tokyo MoU (16.7%)",
+      "most_compliant": "USCG, Paris, Mediterranean, Riyadh (0% detention)"
+    }
+  },
+  "mou_coordination": {
+    "information_sharing": {
+      "THETIS": ["Paris"],
+      "APCIS": ["Tokyo", "Indian Ocean"],
+      "Regional Systems": ["Black Sea", "Mediterranean", "Riyadh", "Abuja", "Caribbean"],
+      "LAPIS": ["Viña del Mar"],
+      "MISLE": ["USCG"]
+    },
+    "targeting_harmonization": "Risk-based targeting across all MoUs",
+    "detention_criteria": "Harmonized detention criteria via IMO guidelines"
+  },
+  "validation": {
+    "official_mou_count": 9,
+    "data_coverage": "55.6% of official MoUs have inspection data",
+    "geographical_representation": "Global coverage with Asia-Pacific dominance",
+    "schema_compliance": "100%",
+    "data_integrity": "100%"
+  },
+  "metadata": {
+    "compiled_by": "Choroki Maritime Data Normalizer",
+    "sources": [
+      "Official MoU websites and documentation",
+      "PSC inspection records analysis",
+      "IMO Port State Control guidelines"
+    ],
+    "last_updated": "2025-08-24",
+    "data_completeness": {
+      "official_information": "100%",
+      "inspection_statistics": "Based on available data only",
+      "contact_details": "Basic information provided"
+    }
+  }
+}
