@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    
+    <!-- Performance Optimization Meta Tags -->
+    <meta name="theme-color" content="#6366f1">
+    <meta name="msapplication-TileColor" content="#6366f1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    
+    <!-- Preconnect to external domains for performance -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    
+    <!-- DNS prefetch for faster loading -->
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    
+    <title>PSC Fleet Management Dashboard - Integrated System</title>
+    <meta name="description" content="Comprehensive PSC inspection management system with 7 specialized modules for fleet performance monitoring.">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css" as="style">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/apexcharts@3.44.0/dist/apexcharts.min.js" as="script">
+    <link rel="preload" href="./src/assets/data/inspection_fact.json" as="fetch" crossorigin>
+    
+    <!-- Critical CSS - Inline for performance -->
+    <style>
+        /* Critical CSS for initial render */
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8fafc;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .loading-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .loading-content {
+            text-align: center;
+            color: white;
+            padding: 2rem;
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid #ffffff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .system-status {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.9);
+            padding: 10px 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            font-size: 0.875rem;
+            z-index: 1000;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-loading { background-color: #f59e0b; }
+        .status-ready { background-color: #10b981; }
+        .status-error { background-color: #ef4444; }
+        
+        .performance-metrics {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-family: monospace;
+            z-index: 1001;
+            display: none;
+        }
+        
+        .hidden { display: none !important; }
+    </style>
+    
+    <!-- External CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css" rel="stylesheet"/>
+    <link href="./src/assets/css/psc-custom.css" rel="stylesheet"/>
+</head>
+<body>
+    <!-- System Loading Screen -->
+    <div id="systemLoadingScreen" class="loading-container">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h2>PSC Dashboard System</h2>
+            <p id="loadingStatus">Initializing system integration...</p>
+            <div id="moduleLoadingProgress">
+                <small id="moduleStatus">Loading modules...</small>
+            </div>
+        </div>
+    </div>
+    
+    <!-- System Status Indicator -->
+    <div id="systemStatus" class="system-status hidden">
+        <span class="status-indicator status-loading"></span>
+        <span id="statusText">System Loading</span>
+    </div>
+    
+    <!-- Performance Metrics (Developer Mode) -->
+    <div id="performanceMetrics" class="performance-metrics">
+        <div>Load Time: <span id="loadTime">--</span>ms</div>
+        <div>Cache Hit Rate: <span id="cacheHitRate">--</span>%</div>
+        <div>Memory Usage: <span id="memoryUsage">--</span>%</div>
+        <div>API Calls: <span id="apiCalls">--</span></div>
+    </div>
+    
+    <!-- Main Application Container (Hidden initially) -->
+    <div id="mainApplication" class="hidden">
+        <div class="page">
+            <!-- Navigation Header -->
+            <header class="navbar navbar-expand-md navbar-light d-print-none">
+                <div class="container-xl">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
+                        <a href="./src/pages/dashboard.html">
+                            <img src="https://via.placeholder.com/110x32/6366f1/ffffff?text=PSC+Dashboard" width="110" height="32" alt="PSC Dashboard" class="navbar-brand-image">
+                        </a>
+                    </h1>
+                    <div class="navbar-nav flex-row order-md-last">
+                        <div class="d-none d-md-flex">
+                            <a href="#" class="nav-link px-0" data-bs-toggle="modal" data-bs-target="#modal-system-info" title="System Information">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                    <circle cx="12" cy="12" r="9"/>
+                                    <line x1="12" y1="8" x2="12.01" y2="8"/>
+                                    <polyline points="11,12 12,12 12,16 13,16"/>
+                                </svg>
+                                System Info
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Welcome Content -->
+            <div class="page-wrapper">
+                <div class="container-xl">
+                    <div class="page-header d-print-none">
+                        <div class="row g-2 align-items-center">
+                            <div class="col">
+                                <h2 class="page-title">PSC Fleet Management Dashboard</h2>
+                                <div class="text-muted">Integrated system with 7 specialized modules</div>
+                            </div>
+                            <div class="col-12 col-md-auto ms-auto d-print-none">
+                                <div class="btn-list">
+                                    <a href="./src/pages/dashboard.html" class="btn btn-primary d-none d-sm-inline-block">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M5 12l-2 0l9 -9l9 9l-2 0"/>
+                                            <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"/>
+                                            <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"/>
+                                        </svg>
+                                        Go to Dashboard
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- System Integration Status Cards -->
+                    <div class="row row-deck row-cards">
+                        <!-- System Components Status -->
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="subheader">System Components</div>
+                                    </div>
+                                    <div class="h1 mb-3" id="componentCount">Loading...</div>
+                                    <div class="d-flex mb-2">
+                                        <div class="flex-1">
+                                            <div class="progress progress-sm">
+                                                <div id="componentProgress" class="progress-bar bg-primary" style="width: 0%" role="progressbar"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-muted" id="componentStatus">Initializing components...</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- PSC Modules Status -->
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="subheader">PSC Modules</div>
+                                    </div>
+                                    <div class="h1 mb-3" id="moduleCount">Loading...</div>
+                                    <div class="d-flex mb-2">
+                                        <div class="flex-1">
+                                            <div class="progress progress-sm">
+                                                <div id="moduleProgress" class="progress-bar bg-success" style="width: 0%" role="progressbar"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-muted" id="moduleStatus">Initializing modules...</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Performance Status -->
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="subheader">Performance</div>
+                                    </div>
+                                    <div class="h1 mb-3" id="performanceScore">--</div>
+                                    <div class="d-flex mb-2">
+                                        <div class="flex-1">
+                                            <div class="progress progress-sm">
+                                                <div id="performanceProgress" class="progress-bar bg-warning" style="width: 0%" role="progressbar"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-muted" id="performanceStatus">Measuring performance...</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Integration Status -->
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="subheader">Integration</div>
+                                    </div>
+                                    <div class="h1 mb-3" id="integrationStatus">Loading...</div>
+                                    <div class="d-flex mb-2">
+                                        <div class="flex-1">
+                                            <div class="progress progress-sm">
+                                                <div id="integrationProgress" class="progress-bar bg-info" style="width: 0%" role="progressbar"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-muted" id="integrationDetails">Checking integration...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Navigation -->
+                    <div class="row row-cards mt-4">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Quick Navigation</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6 col-lg-4 mb-3">
+                                            <a href="./src/pages/dashboard.html" class="btn btn-outline-primary w-100">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                    <rect x="4" y="4" width="6" height="6" rx="1"/>
+                                                    <rect x="14" y="4" width="6" height="6" rx="1"/>
+                                                    <rect x="4" y="14" width="6" height="6" rx="1"/>
+                                                    <rect x="14" y="14" width="6" height="6" rx="1"/>
+                                                </svg>
+                                                Dashboard
+                                            </a>
+                                        </div>
+                                        <div class="col-md-6 col-lg-4 mb-3">
+                                            <a href="./src/pages/inspections.html" class="btn btn-outline-secondary w-100">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                    <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"/>
+                                                    <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/>
+                                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                                </svg>
+                                                Inspections
+                                            </a>
+                                        </div>
+                                        <div class="col-md-6 col-lg-4 mb-3">
+                                            <a href="./src/pages/vessels.html" class="btn btn-outline-success w-100">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                    <path d="M2 20a2.4 2.4 0 0 0 2 1a2.4 2.4 0 0 0 2 -1a2.4 2.4 0 0 1 2 -1a2.4 2.4 0 0 1 2 1a2.4 2.4 0 0 0 2 1a2.4 2.4 0 0 0 2 -1a2.4 2.4 0 0 1 2 -1a2.4 2.4 0 0 1 2 1a2.4 2.4 0 0 0 2 1a2.4 2.4 0 0 0 2 -1"/>
+                                                    <path d="M4 18l-1 -3h18l-1 3"/>
+                                                    <path d="M11 12h7l-7 -9v9"/>
+                                                    <line x1="8" y1="7" x2="6" y2="12"/>
+                                                </svg>
+                                                Vessels
+                                            </a>
+                                        </div>
+                                        <div class="col-md-6 col-lg-4 mb-3">
+                                            <a href="./src/pages/ports-map.html" class="btn btn-outline-info w-100">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                    <circle cx="12" cy="11" r="3"/>
+                                                    <path d="m21 12c-1 0 -3 1 -3 3s2 3 3 3s3 -1 3 -3s-2 -3 -3 -3"/>
+                                                    <path d="m21 3c-1 0 -3 1 -3 3s2 3 3 3s3 -1 3 -3s-2 -3 -3 -3"/>
+                                                    <path d="m3 12c1 0 3 1 3 3s-2 3 -3 3s-3 -1 -3 -3s2 -3 3 -3"/>
+                                                    <path d="m3 3c1 0 3 1 3 3s-2 3 -3 3s-3 -1 -3 -3s2 -3 3 -3"/>
+                                                </svg>
+                                                Ports Map
+                                            </a>
+                                        </div>
+                                        <div class="col-md-6 col-lg-4 mb-3">
+                                            <a href="./src/pages/risk.html" class="btn btn-outline-warning w-100">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                    <path d="M12 9v2m0 4v.01"/>
+                                                    <path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75"/>
+                                                </svg>
+                                                Risk Analysis
+                                            </a>
+                                        </div>
+                                        <div class="col-md-6 col-lg-4 mb-3">
+                                            <a href="./src/pages/deficiencies.html" class="btn btn-outline-danger w-100">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                    <circle cx="12" cy="12" r="9"/>
+                                                    <line x1="12" y1="8" x2="12" y2="12"/>
+                                                    <line x1="12" y1="16" x2="12.01" y2="16"/>
+                                                </svg>
+                                                Deficiencies
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- System Information Modal -->
+    <div class="modal modal-blur fade" id="modal-system-info" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">System Information</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>System Status</h6>
+                            <div id="systemInfoContent">Loading system information...</div>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Performance Metrics</h6>
+                            <div id="performanceInfoContent">Loading performance data...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" onclick="toggleDeveloperMode()">Toggle Developer Mode</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- System Configuration -->
+    <script src="./system-config.js"></script>
+    
+    <!-- Core System Scripts (Load Order Important) -->
+    <script src="./src/assets/js/state-management.js"></script>
+    <script src="./src/assets/js/api-integration-system.js"></script>
+    <script src="./src/assets/js/caching-strategy-system.js"></script>
+    <script src="./src/assets/js/performance-optimization-system.js"></script>
+    <script src="./src/assets/js/module-integration.js"></script>
+    <script src="./src/assets/js/system-integration-core.js"></script>
+    
+    <!-- System Integration & Initialization Script -->
+    <script>
+        // System Integration Manager
+        class IntegratedSystemManager {
+            constructor() {
+                this.loadingStages = [
+                    { name: 'configuration', status: 'pending', message: 'Loading system configuration...' },
+                    { name: 'state-management', status: 'pending', message: 'Initializing state management...' },
+                    { name: 'api-integration', status: 'pending', message: 'Setting up API integration...' },
+                    { name: 'caching', status: 'pending', message: 'Configuring caching strategy...' },
+                    { name: 'performance', status: 'pending', message: 'Optimizing performance...' },
+                    { name: 'modules', status: 'pending', message: 'Loading PSC modules...' },
+                    { name: 'integration', status: 'pending', message: 'Completing system integration...' },
+                    { name: 'validation', status: 'pending', message: 'Validating system integrity...' }
+                ];
+                
+                this.currentStage = 0;
+                this.systemReady = false;
+                this.developerMode = false;
+                
+                this.initializeSystem();
+            }
+            
+            async initializeSystem() {
+                console.log('🚀 Starting PSC Dashboard System Integration...');
+                
+                // Register Service Worker
+                if ('serviceWorker' in navigator) {
+                    try {
+                        await navigator.serviceWorker.register('./sw.js');
+                        console.log('✅ Service Worker registered');
+                    } catch (error) {
+                        console.warn('⚠️ Service Worker registration failed:', error);
+                    }
+                }
+                
+                // Execute loading stages
+                for (let i = 0; i < this.loadingStages.length; i++) {
+                    await this.executeStage(i);
+                }
+                
+                // Complete initialization
+                await this.completeInitialization();
+            }
+            
+            async executeStage(index) {
+                this.currentStage = index;
+                const stage = this.loadingStages[index];
+                
+                this.updateLoadingStatus(stage.message);
+                stage.status = 'loading';
+                
+                try {
+                    switch (stage.name) {
+                        case 'configuration':
+                            await this.waitForGlobal('PSC_CONFIG', 2000);
+                            break;
+                        case 'state-management':
+                            await this.waitForGlobal('StateManagement', 5000);
+                            break;
+                        case 'api-integration':
+                            await this.waitForGlobal('PSC_API', 3000);
+                            break;
+                        case 'caching':
+                            await this.waitForGlobal('CachingSystem', 3000);
+                            break;
+                        case 'performance':
+                            await this.waitForGlobal('PerformanceSystem', 3000);
+                            break;
+                        case 'modules':
+                            await this.waitForGlobal('ModuleIntegrationManager', 5000);
+                            break;
+                        case 'integration':
+                            await this.waitForGlobal('SystemIntegration', 5000);
+                            break;
+                        case 'validation':
+                            await this.validateSystem();
+                            break;
+                    }
+                    
+                    stage.status = 'completed';
+                    console.log(`✅ Stage ${index + 1}/${this.loadingStages.length} completed: ${stage.name}`);
+                    
+                    // Add small delay for visual feedback
+                    await this.delay(500);
+                    
+                } catch (error) {
+                    stage.status = 'error';
+                    stage.error = error.message;
+                    console.error(`❌ Stage ${index + 1} failed: ${stage.name}`, error);
+                    
+                    // Continue with non-critical errors
+                    if (!this.isCriticalStage(stage.name)) {
+                        console.warn(`⚠️ Non-critical stage failed, continuing: ${stage.name}`);
+                    } else {
+                        throw error;
+                    }
+                }
+            }
+            
+            async completeInitialization() {
+                this.systemReady = true;
+                
+                // Hide loading screen
+                document.getElementById('systemLoadingScreen').classList.add('hidden');
+                document.getElementById('mainApplication').classList.remove('hidden');
+                document.getElementById('systemStatus').classList.remove('hidden');
+                
+                // Update system status
+                this.updateSystemStatus('ready', 'System Ready');
+                
+                // Initialize system monitoring
+                this.startSystemMonitoring();
+                
+                // Update UI with system information
+                this.updateSystemInformation();
+                
+                console.log('🎉 PSC Dashboard System Integration Complete!');
+                
+                // Show success notification
+                if (window.StateManagement?.ui?.showNotification) {
+                    window.StateManagement.ui.showNotification(
+                        'PSC Dashboard system integration completed successfully!',
+                        'success',
+                        5000
+                    );
+                }
+            }
+            
+            async validateSystem() {
+                const validations = [];
+                
+                // Validate system integration
+                if (window.SystemIntegration) {
+                    const status = window.SystemIntegration.getSystemStatus();
+                    validations.push({
+                        name: 'SystemIntegration',
+                        valid: status.integration.status === 'completed',
+                        details: status
+                    });
+                }
+                
+                // Validate performance
+                if (window.PerformanceSystem) {
+                    const perfStatus = window.PerformanceSystem.getPerformanceStatus();
+                    validations.push({
+                        name: 'Performance',
+                        valid: perfStatus.isOptimized,
+                        details: perfStatus
+                    });
+                }
+                
+                // Validate caching
+                if (window.CachingSystem) {
+                    const cacheHealth = window.CachingSystem.getHealthStatus();
+                    validations.push({
+                        name: 'Caching',
+                        valid: cacheHealth.status === 'healthy',
+                        details: cacheHealth
+                    });
+                }
+                
+                const allValid = validations.every(v => v.valid);
+                if (!allValid) {
+                    const failures = validations.filter(v => !v.valid);
+                    console.warn('⚠️ System validation warnings:', failures);
+                }
+                
+                return allValid;
+            }
+            
+            startSystemMonitoring() {
+                // Update system metrics every 5 seconds
+                setInterval(() => {
+                    this.updateSystemMetrics();
+                }, 5000);
+                
+                // Update performance metrics every 10 seconds
+                setInterval(() => {
+                    this.updatePerformanceMetrics();
+                }, 10000);
+            }
+            
+            updateSystemMetrics() {
+                if (!window.SystemIntegration) return;
+                
+                const status = window.SystemIntegration.getSystemStatus();
+                
+                // Update component count and progress
+                const componentCount = Object.keys(status.systemComponents).length;
+                const componentLoaded = Object.values(status.systemComponents).filter(c => c.loaded).length;
+                
+                document.getElementById('componentCount').textContent = `${componentLoaded}/${componentCount}`;
+                document.getElementById('componentProgress').style.width = `${(componentLoaded/componentCount)*100}%`;
+                document.getElementById('componentStatus').textContent = `${componentLoaded} of ${componentCount} components ready`;
+                
+                // Update module count and progress
+                const moduleCount = Object.keys(status.modules).length;
+                const moduleLoaded = Object.values(status.modules).filter(m => m.loaded).length;
+                
+                document.getElementById('moduleCount').textContent = `${moduleLoaded}/${moduleCount}`;
+                document.getElementById('moduleProgress').style.width = `${(moduleLoaded/moduleCount)*100}%`;
+                document.getElementById('moduleStatus').textContent = `${moduleLoaded} of ${moduleCount} modules ready`;
+                
+                // Update integration status
+                document.getElementById('integrationStatus').textContent = status.integration.status;
+                const integrationProgress = status.integration.status === 'completed' ? 100 : 75;
+                document.getElementById('integrationProgress').style.width = `${integrationProgress}%`;
+                document.getElementById('integrationDetails').textContent = 
+                    `${status.dataFlows} data flows, ${status.alerts.length} alerts`;
+            }
+            
+            updatePerformanceMetrics() {
+                if (!window.PerformanceSystem || !window.CachingSystem) return;
+                
+                const perfStatus = window.PerformanceSystem.getPerformanceStatus();
+                const cacheStats = window.CachingSystem.getStatistics();
+                
+                // Update performance score
+                const score = perfStatus.isOptimized ? 100 : 75;
+                document.getElementById('performanceScore').textContent = score;
+                document.getElementById('performanceProgress').style.width = `${score}%`;
+                document.getElementById('performanceStatus').textContent = 
+                    perfStatus.isOptimized ? 'Optimized' : 'Needs optimization';
+                
+                // Update developer mode metrics if enabled
+                if (this.developerMode) {
+                    document.getElementById('loadTime').textContent = 
+                        perfStatus.metrics?.loadComplete || '--';
+                    document.getElementById('cacheHitRate').textContent = 
+                        cacheStats.performanceMetrics.cacheHitRate || '--';
+                    document.getElementById('memoryUsage').textContent = 
+                        cacheStats.memoryCache.utilization || '--';
+                    document.getElementById('apiCalls').textContent = 
+                        window.PSC_API?.getSystemHealth?.()?.totalEndpoints || '--';
+                }
+            }
+            
+            updateSystemInformation() {
+                // Update system info modal content
+                const systemInfo = this.getSystemInformation();
+                document.getElementById('systemInfoContent').innerHTML = systemInfo.html;
+                
+                const perfInfo = this.getPerformanceInformation();
+                document.getElementById('performanceInfoContent').innerHTML = perfInfo.html;
+            }
+            
+            getSystemInformation() {
+                const status = window.SystemIntegration?.getSystemStatus();
+                
+                return {
+                    html: `
+                        <div class="mb-2"><strong>Version:</strong> ${window.PSC_CONFIG?.system?.version || '1.0.0'}</div>
+                        <div class="mb-2"><strong>Status:</strong> <span class="badge bg-success">Ready</span></div>
+                        <div class="mb-2"><strong>Components:</strong> ${status ? Object.keys(status.systemComponents).length : '--'}</div>
+                        <div class="mb-2"><strong>Modules:</strong> ${status ? Object.keys(status.modules).length : '--'}</div>
+                        <div class="mb-2"><strong>Data Flows:</strong> ${status?.dataFlows || '--'}</div>
+                        <div class="mb-2"><strong>Uptime:</strong> ${this.formatUptime(status?.health?.uptime)}</div>
+                    `
+                };
+            }
+            
+            getPerformanceInformation() {
+                const perfMetrics = window.SystemIntegration?.getPerformanceMetrics();
+                
+                return {
+                    html: `
+                        <div class="mb-2"><strong>Load Time:</strong> ${perfMetrics?.performance?.metrics?.loadComplete || '--'}ms</div>
+                        <div class="mb-2"><strong>Cache Hit Rate:</strong> ${perfMetrics?.caching?.performanceMetrics?.cacheHitRate || '--'}%</div>
+                        <div class="mb-2"><strong>Memory Usage:</strong> ${perfMetrics?.system?.memoryUsage || '--'}%</div>
+                        <div class="mb-2"><strong>Error Rate:</strong> ${perfMetrics?.system?.errorRate?.toFixed(3) || '--'}%</div>
+                        <div class="mb-2"><strong>API Endpoints:</strong> ${perfMetrics?.api?.totalEndpoints || '--'}</div>
+                    `
+                };
+            }
+            
+            updateLoadingStatus(message) {
+                const statusEl = document.getElementById('loadingStatus');
+                const moduleStatusEl = document.getElementById('moduleStatus');
+                
+                if (statusEl) statusEl.textContent = message;
+                if (moduleStatusEl) moduleStatusEl.textContent = `Stage ${this.currentStage + 1}/${this.loadingStages.length}`;
+            }
+            
+            updateSystemStatus(status, text) {
+                const statusEl = document.getElementById('systemStatus');
+                const indicatorEl = statusEl.querySelector('.status-indicator');
+                const textEl = document.getElementById('statusText');
+                
+                // Remove existing status classes
+                indicatorEl.classList.remove('status-loading', 'status-ready', 'status-error');
+                
+                // Add new status class
+                indicatorEl.classList.add(`status-${status}`);
+                textEl.textContent = text;
+            }
+            
+            // Utility methods
+            async waitForGlobal(name, timeout = 5000) {
+                return new Promise((resolve, reject) => {
+                    const startTime = Date.now();
+                    
+                    const check = () => {
+                        if (window[name]) {
+                            resolve(window[name]);
+                            return;
+                        }
+                        
+                        if (Date.now() - startTime > timeout) {
+                            reject(new Error(`Timeout waiting for ${name}`));
+                            return;
+                        }
+                        
+                        setTimeout(check, 100);
+                    };
+                    
+                    check();
+                });
+            }
+            
+            delay(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+            
+            isCriticalStage(stageName) {
+                const criticalStages = ['configuration', 'state-management', 'integration'];
+                return criticalStages.includes(stageName);
+            }
+            
+            formatUptime(ms) {
+                if (!ms) return '--';
+                const seconds = Math.floor(ms / 1000);
+                const minutes = Math.floor(seconds / 60);
+                const hours = Math.floor(minutes / 60);
+                
+                if (hours > 0) return `${hours}h ${minutes % 60}m`;
+                if (minutes > 0) return `${minutes}m ${seconds % 60}s`;
+                return `${seconds}s`;
+            }
+        }
+        
+        // Global functions
+        function toggleDeveloperMode() {
+            if (window.integratedSystemManager) {
+                window.integratedSystemManager.developerMode = !window.integratedSystemManager.developerMode;
+                const metricsEl = document.getElementById('performanceMetrics');
+                
+                if (window.integratedSystemManager.developerMode) {
+                    metricsEl.style.display = 'block';
+                } else {
+                    metricsEl.style.display = 'none';
+                }
+            }
+        }
+        
+        // Initialize system when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            window.integratedSystemManager = new IntegratedSystemManager();
+        });
+        
+        // External library loading
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load Tabler JS
+            const tablerScript = document.createElement('script');
+            tablerScript.src = 'https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js';
+            tablerScript.async = true;
+            document.head.appendChild(tablerScript);
+        });
+    </script>
+</body>
+</html>

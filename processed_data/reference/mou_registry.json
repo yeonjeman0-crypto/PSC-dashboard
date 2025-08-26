@@ -1,0 +1,59 @@
+{
+  "schema_version": "v1.0.0",
+  "generated_at": "2025-08-25T10:30:00.000Z",
+  "data_source": "Copied from 03-mou-registry.json",
+  "total_mou_regions": 9,
+  "official_mous": 9,
+  "non_mou_entities": 1,
+  "mou_regions": [
+    {
+      "mou_code": "PARIS",
+      "mou_name": "Paris MoU",
+      "full_name": "Memorandum of Understanding on Port State Control in the North Atlantic Region",
+      "region": "North Atlantic",
+      "classification": "Official-MOU",
+      "inspection_regime": "THETIS",
+      "detention_threshold": "High"
+    },
+    {
+      "mou_code": "TOKYO",
+      "mou_name": "Tokyo MoU", 
+      "full_name": "Memorandum of Understanding on Port State Control in the Asia-Pacific Region",
+      "region": "Asia-Pacific",
+      "classification": "Official-MOU",
+      "inspection_regime": "APCIS",
+      "detention_threshold": "High"
+    },
+    {
+      "mou_code": "MEDITERRANEAN",
+      "mou_name": "Mediterranean MoU",
+      "full_name": "Memorandum of Understanding on Port State Control in the Mediterranean Region",
+      "region": "Mediterranean",
+      "classification": "Official-MOU",
+      "inspection_regime": "MEDIS",
+      "detention_threshold": "Medium"
+    },
+    {
+      "mou_code": "RIYADH",
+      "mou_name": "Riyadh MoU",
+      "full_name": "Memorandum of Understanding on Port State Control for the Gulf Region",
+      "region": "Arabian Gulf",
+      "classification": "Official-MOU",
+      "inspection_regime": "Gulf Information System",
+      "detention_threshold": "Medium"
+    },
+    {
+      "mou_code": "USCG",
+      "mou_name": "U.S. Coast Guard",
+      "full_name": "United States Coast Guard Port State Control",
+      "region": "United States",
+      "classification": "Non-MOU",
+      "inspection_regime": "MISLE",
+      "detention_threshold": "Variable"
+    }
+  ],
+  "validation": {
+    "record_count": 10,
+    "data_quality": "A+"
+  }
+}

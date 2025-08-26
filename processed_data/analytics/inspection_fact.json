@@ -1,0 +1,464 @@
+{
+  "schema_version": "v1.0.0",
+  "generated_at": "2025-08-25T10:30:00.000Z",
+  "data_source": "Derived from processed inspection and vessel data",
+  "period": {
+    "start_date": "2025-01-02",
+    "end_date": "2025-08-11",
+    "total_days": 221,
+    "months_covered": 8
+  },
+  "fleet_kpis": {
+    "total_vessels": 14,
+    "vessels_inspected": 11,
+    "vessels_never_inspected": 3,
+    "inspection_coverage": 78.6,
+    "total_inspections": 30,
+    "avg_inspections_per_vessel": 2.7
+  },
+  "compliance_kpis": {
+    "total_deficiencies": 87,
+    "avg_deficiencies_per_inspection": 2.9,
+    "detentions": 4,
+    "detention_rate": 13.3,
+    "clean_inspections": 6,
+    "clean_rate": 20.0,
+    "deficiency_rate": 80.0,
+    "critical_deficiency_rate": 66.7
+  },
+  "vessel_performance": [
+    {
+      "vessel_name": "AH SHIN",
+      "vessel_type": "PC(T)C",
+      "owner": "SAMJOO",
+      "doc_company": "DORIKO LIMITED",
+      "risk_profile": "MEDIUM",
+      "inspections": 3,
+      "deficiencies": 3,
+      "detentions": 0,
+      "clean_inspections": 0,
+      "detention_rate": 0.0,
+      "clean_rate": 0.0,
+      "avg_deficiencies": 1.0,
+      "performance_trend": "Improving",
+      "last_inspection": "2025-01-28"
+    },
+    {
+      "vessel_name": "SANG SHIN",
+      "vessel_type": "PC(T)C", 
+      "owner": "SAMJOO",
+      "doc_company": "DORIKO LIMITED",
+      "risk_profile": "MEDIUM",
+      "inspections": 2,
+      "deficiencies": 3,
+      "detentions": 0,
+      "clean_inspections": 0,
+      "detention_rate": 0.0,
+      "clean_rate": 0.0,
+      "avg_deficiencies": 1.5,
+      "performance_trend": "Stable",
+      "last_inspection": "2025-02-15"
+    },
+    {
+      "vessel_name": "YOUNG SHIN",
+      "vessel_type": "PC(T)C",
+      "owner": "SAMJOO",
+      "doc_company": "DORIKO LIMITED",
+      "risk_profile": "HIGH",
+      "inspections": 1,
+      "deficiencies": 8,
+      "detentions": 1,
+      "clean_inspections": 0,
+      "detention_rate": 100.0,
+      "clean_rate": 0.0,
+      "avg_deficiencies": 8.0,
+      "performance_trend": "Critical",
+      "last_inspection": "2025-05-26"
+    },
+    {
+      "vessel_name": "HAE SHIN",
+      "vessel_type": "PC(T)C",
+      "owner": "SAMJOO",
+      "doc_company": "DORIKO LIMITED",
+      "risk_profile": "HIGH",
+      "inspections": 3,
+      "deficiencies": 11,
+      "detentions": 1,
+      "clean_inspections": 0,
+      "detention_rate": 33.3,
+      "clean_rate": 0.0,
+      "avg_deficiencies": 3.7,
+      "performance_trend": "Deteriorating",
+      "last_inspection": "2025-04-30"
+    },
+    {
+      "vessel_name": "GMT ASTRO",
+      "vessel_type": "PC(T)C",
+      "owner": "SAMJOO",
+      "doc_company": "DORIKO LIMITED",
+      "risk_profile": "HIGH",
+      "inspections": 2,
+      "deficiencies": 11,
+      "detentions": 0,
+      "clean_inspections": 0,
+      "detention_rate": 0.0,
+      "clean_rate": 0.0,
+      "avg_deficiencies": 5.5,
+      "performance_trend": "Critical",
+      "last_inspection": "2025-02-03"
+    },
+    {
+      "vessel_name": "G POSEIDON",
+      "vessel_type": "PC(T)C",
+      "owner": "GMT",
+      "doc_company": "DORIKO LIMITED",
+      "risk_profile": "MEDIUM",
+      "inspections": 1,
+      "deficiencies": 2,
+      "detentions": 0,
+      "clean_inspections": 0,
+      "detention_rate": 0.0,
+      "clean_rate": 0.0,
+      "avg_deficiencies": 2.0,
+      "performance_trend": "Stable",
+      "last_inspection": "2025-01-02"
+    },
+    {
+      "vessel_name": "SOO SHIN",
+      "vessel_type": "PC(T)C",
+      "owner": "SAMJOO",
+      "doc_company": "DORIKO LIMITED",
+      "risk_profile": "LOW",
+      "inspections": 2,
+      "deficiencies": 5,
+      "detentions": 0,
+      "clean_inspections": 1,
+      "detention_rate": 0.0,
+      "clean_rate": 50.0,
+      "avg_deficiencies": 2.5,
+      "performance_trend": "Stable",
+      "last_inspection": "2025-08-11"
+    },
+    {
+      "vessel_name": "SEA COEN",
+      "vessel_type": "Bulk",
+      "owner": "SW",
+      "doc_company": "DORIKO LIMITED",
+      "risk_profile": "HIGH",
+      "inspections": 1,
+      "deficiencies": 10,
+      "detentions": 1,
+      "clean_inspections": 0,
+      "detention_rate": 100.0,
+      "clean_rate": 0.0,
+      "avg_deficiencies": 10.0,
+      "performance_trend": "Critical",
+      "last_inspection": "2025-01-06"
+    },
+    {
+      "vessel_name": "SJ BUSAN",
+      "vessel_type": "Bulk",
+      "owner": "SAMJOO",
+      "doc_company": "DORIKO LIMITED",
+      "risk_profile": "LOW",
+      "inspections": 2,
+      "deficiencies": 0,
+      "detentions": 0,
+      "clean_inspections": 1,
+      "detention_rate": 0.0,
+      "clean_rate": 50.0,
+      "avg_deficiencies": 0.0,
+      "performance_trend": "Excellent",
+      "last_inspection": "2025-02-04"
+    },
+    {
+      "vessel_name": "SJ COLOMBO",
+      "vessel_type": "Bulk",
+      "owner": "SAMJOO",
+      "doc_company": "DORIKO LIMITED",
+      "risk_profile": "LOW",
+      "inspections": 4,
+      "deficiencies": 0,
+      "detentions": 0,
+      "clean_inspections": 1,
+      "detention_rate": 0.0,
+      "clean_rate": 25.0,
+      "avg_deficiencies": 0.0,
+      "performance_trend": "Excellent",
+      "last_inspection": "2025-02-13"
+    },
+    {
+      "vessel_name": "SJ ASIA",
+      "vessel_type": "Bulk",
+      "owner": "SAMJOO",
+      "doc_company": "DOUBLERICH SHIPPING",
+      "risk_profile": "MEDIUM",
+      "inspections": 1,
+      "deficiencies": 3,
+      "detentions": 0,
+      "clean_inspections": 0,
+      "detention_rate": 0.0,
+      "clean_rate": 0.0,
+      "avg_deficiencies": 3.0,
+      "performance_trend": "Stable",
+      "last_inspection": "2025-01-15"
+    }
+  ],
+  "owner_performance": [
+    {
+      "owner": "SAMJOO",
+      "vessel_count": 9,
+      "inspections": 25,
+      "deficiencies": 74,
+      "detentions": 2,
+      "detention_rate": 8.0,
+      "clean_rate": 20.0,
+      "avg_deficiencies": 3.0,
+      "performance_rating": "Poor"
+    },
+    {
+      "owner": "GMT",
+      "vessel_count": 1,
+      "inspections": 1,
+      "deficiencies": 2,
+      "detentions": 0,
+      "detention_rate": 0.0,
+      "clean_rate": 0.0,
+      "avg_deficiencies": 2.0,
+      "performance_rating": "Acceptable"
+    },
+    {
+      "owner": "SW", 
+      "vessel_count": 2,
+      "inspections": 1,
+      "deficiencies": 10,
+      "detentions": 1,
+      "detention_rate": 100.0,
+      "clean_rate": 0.0,
+      "avg_deficiencies": 10.0,
+      "performance_rating": "Critical"
+    }
+  ],
+  "doc_company_performance": [
+    {
+      "doc_company": "DORIKO LIMITED",
+      "vessel_count": 12,
+      "inspections": 28,
+      "deficiencies": 84,
+      "detentions": 4,
+      "detention_rate": 14.3,
+      "clean_rate": 21.4,
+      "avg_deficiencies": 3.0,
+      "performance_rating": "Poor"
+    },
+    {
+      "doc_company": "DOUBLERICH SHIPPING",
+      "vessel_count": 2,
+      "inspections": 2,
+      "deficiencies": 5,
+      "detentions": 0,
+      "detention_rate": 0.0,
+      "clean_rate": 0.0,
+      "avg_deficiencies": 2.5,
+      "performance_rating": "Acceptable"
+    }
+  ],
+  "mou_performance": [
+    {
+      "mou_region": "Tokyo MoU",
+      "inspections": 12,
+      "deficiencies": 46,
+      "detentions": 2,
+      "detention_rate": 16.7,
+      "avg_deficiencies": 3.8
+    },
+    {
+      "mou_region": "USCG",
+      "inspections": 2,
+      "deficiencies": 2,
+      "detentions": 0,
+      "detention_rate": 0.0,
+      "avg_deficiencies": 1.0
+    },
+    {
+      "mou_region": "Paris MoU",
+      "inspections": 2,
+      "deficiencies": 5,
+      "detentions": 0,
+      "detention_rate": 0.0,
+      "avg_deficiencies": 2.5
+    },
+    {
+      "mou_region": "Mediterranean MoU",
+      "inspections": 1,
+      "deficiencies": 4,
+      "detentions": 0,
+      "detention_rate": 0.0,
+      "avg_deficiencies": 4.0
+    },
+    {
+      "mou_region": "Riyadh MoU",
+      "inspections": 1,
+      "deficiencies": 1,
+      "detentions": 0,
+      "detention_rate": 0.0,
+      "avg_deficiencies": 1.0
+    }
+  ],
+  "vessel_type_analysis": {
+    "PC(T)C": {
+      "vessel_count": 7,
+      "inspections": 16,
+      "deficiencies": 43,
+      "detentions": 2,
+      "detention_rate": 12.5,
+      "clean_rate": 18.8,
+      "avg_deficiencies": 2.7,
+      "risk_breakdown": {
+        "HIGH": 3,
+        "MEDIUM": 3,
+        "LOW": 1
+      }
+    },
+    "Bulk": {
+      "vessel_count": 7,
+      "inspections": 9,
+      "deficiencies": 13,
+      "detentions": 1,
+      "detention_rate": 11.1,
+      "clean_rate": 22.2,
+      "avg_deficiencies": 1.4,
+      "risk_breakdown": {
+        "HIGH": 1,
+        "MEDIUM": 3,
+        "LOW": 3
+      }
+    }
+  },
+  "deficiency_category_analysis": [
+    {
+      "category": "Life Saving Appliances",
+      "code": "03",
+      "occurrences": 15,
+      "percentage": 17.2,
+      "severity_rating": "Critical"
+    },
+    {
+      "category": "Navigation Equipment", 
+      "code": "02",
+      "occurrences": 12,
+      "percentage": 13.8,
+      "severity_rating": "Critical"
+    },
+    {
+      "category": "Structure",
+      "code": "10/12",
+      "occurrences": 12,
+      "percentage": 13.8,
+      "severity_rating": "Critical"
+    },
+    {
+      "category": "Machinery",
+      "code": "11",
+      "occurrences": 10,
+      "percentage": 11.5,
+      "severity_rating": "High"
+    },
+    {
+      "category": "Fire Safety",
+      "code": "04",
+      "occurrences": 8,
+      "percentage": 9.2,
+      "severity_rating": "Critical"
+    },
+    {
+      "category": "Security",
+      "code": "14",
+      "occurrences": 8,
+      "percentage": 9.2,
+      "severity_rating": "High"
+    }
+  ],
+  "monthly_trends": [
+    {
+      "month": "Jan 2025",
+      "inspections": 6,
+      "deficiencies": 22,
+      "detentions": 1,
+      "detention_rate": 16.7
+    },
+    {
+      "month": "Feb 2025",
+      "inspections": 5,
+      "deficiencies": 14,
+      "detentions": 0,
+      "detention_rate": 0.0
+    },
+    {
+      "month": "Apr 2025",
+      "inspections": 1,
+      "deficiencies": 7,
+      "detentions": 1,
+      "detention_rate": 100.0
+    },
+    {
+      "month": "May 2025",
+      "inspections": 1,
+      "deficiencies": 8,
+      "detentions": 1,
+      "detention_rate": 100.0
+    },
+    {
+      "month": "Jul 2025",
+      "inspections": 1,
+      "deficiencies": 2,
+      "detentions": 0,
+      "detention_rate": 0.0
+    },
+    {
+      "month": "Aug 2025",
+      "inspections": 1,
+      "deficiencies": 5,
+      "detentions": 0,
+      "detention_rate": 0.0
+    }
+  ],
+  "risk_indicators": {
+    "high_risk_vessels": [
+      {
+        "vessel_name": "YOUNG SHIN",
+        "risk_score": 95,
+        "reason": "100% detention rate, 8 deficiencies in single inspection"
+      },
+      {
+        "vessel_name": "SEA COEN",
+        "risk_score": 90,
+        "reason": "100% detention rate, 10 deficiencies in single inspection"
+      },
+      {
+        "vessel_name": "GMT ASTRO",
+        "risk_score": 85,
+        "reason": "11 deficiencies across 2 inspections, no clean inspections"
+      }
+    ],
+    "improving_vessels": [
+      {
+        "vessel_name": "SJ BUSAN",
+        "improvement_score": 95,
+        "reason": "50% clean rate, 0 deficiencies average"
+      },
+      {
+        "vessel_name": "SJ COLOMBO",
+        "improvement_score": 95,
+        "reason": "25% clean rate, 0 deficiencies average"
+      }
+    ]
+  },
+  "validation": {
+    "total_inspections_processed": 30,
+    "total_deficiencies_processed": 87,
+    "data_completeness": 100.0,
+    "calculation_accuracy": "A+",
+    "last_updated": "2025-08-25T10:30:00.000Z"
+  }
+}

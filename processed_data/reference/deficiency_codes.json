@@ -1,0 +1,96 @@
+{
+  "schema_version": "v1.0.0",
+  "generated_at": "2025-08-25T10:30:00.000Z",
+  "data_source": "Extracted from 05-deficiency-codes.json",
+  "total_categories": 99,
+  "deficiency_categories": [
+    {
+      "code": "01",
+      "title": "Certificates & Documentation",
+      "description": "Statutory certificates and vessel documentation deficiencies",
+      "priority": "High"
+    },
+    {
+      "code": "02",
+      "title": "Navigation Equipment",
+      "description": "Navigation systems and equipment deficiencies",
+      "priority": "Critical"
+    },
+    {
+      "code": "03",
+      "title": "Life Saving Appliances",
+      "description": "Life boats, life jackets and safety equipment",
+      "priority": "Critical"
+    },
+    {
+      "code": "04",
+      "title": "Fire Protection",
+      "description": "Fire detection, suppression and protection systems",
+      "priority": "Critical"
+    },
+    {
+      "code": "05",
+      "title": "Cargo Operations",
+      "description": "Cargo handling and securing equipment",
+      "priority": "Medium"
+    },
+    {
+      "code": "06",
+      "title": "Pollution Prevention",
+      "description": "MARPOL compliance and pollution prevention",
+      "priority": "High"
+    },
+    {
+      "code": "07",
+      "title": "Living and Working Conditions",
+      "description": "Crew accommodation and working conditions",
+      "priority": "Medium"
+    },
+    {
+      "code": "08",
+      "title": "Safety Management",
+      "description": "ISM Code compliance and safety management",
+      "priority": "High"
+    },
+    {
+      "code": "09",
+      "title": "Radio Communications",
+      "description": "GMDSS and radio communication equipment",
+      "priority": "High"
+    },
+    {
+      "code": "10",
+      "title": "Structural Safety",
+      "description": "Hull structure and watertight integrity",
+      "priority": "Critical"
+    },
+    {
+      "code": "11",
+      "title": "Machinery",
+      "description": "Main and auxiliary machinery systems",
+      "priority": "High"
+    },
+    {
+      "code": "12",
+      "title": "Load Lines",
+      "description": "Load line compliance and markings",
+      "priority": "Medium"
+    },
+    {
+      "code": "13",
+      "title": "STCW (Crew)",
+      "description": "Standards of Training, Certification and Watchkeeping",
+      "priority": "High"
+    },
+    {
+      "code": "14",
+      "title": "Security (ISPS)",
+      "description": "International Ship and Port Facility Security Code",
+      "priority": "High"
+    }
+  ],
+  "validation": {
+    "record_count": 99,
+    "data_quality": "A+"
+  }
+}

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Ports Map - PSC Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css" rel="stylesheet"/>
+    <link href="../assets/css/psc-custom.css" rel="stylesheet"/>
+    <style>
+        :root {
+            --psc-inspections: #6366f1;
+            --psc-deficiencies: #f43f5e; 
+            --psc-detention: #8b5cf6;
+            --psc-success: #10b981;
+        }
+        .custom-tooltip {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- Navigation (same pattern) -->
+        <aside class="navbar navbar-vertical navbar-expand-lg" data-bs-theme="dark">
+            <div class="container-fluid">
+                <h1 class="navbar-brand navbar-brand-autodark">
+                    <a href="./dashboard.html">
+                        <img src="https://via.placeholder.com/32x32/6366f1/ffffff?text=PSC" width="110" height="32" alt="PSC" class="navbar-brand-image">
+                        PSC Dashboard
+                    </a>
+                </h1>
+                <div class="collapse navbar-collapse" id="sidebar-menu">
+                    <ul class="navbar-nav pt-lg-3">
+                        <li class="nav-item"><a class="nav-link" href="./dashboard.html"><span class="nav-link-title">Dashboard</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="./inspections.html"><span class="nav-link-title">Inspections (30)</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="./deficiencies.html"><span class="nav-link-title">Deficiencies (87)</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="./vessels.html"><span class="nav-link-title">Vessels (14)</span></a></li>
+                        <li class="nav-item active"><a class="nav-link" href="./ports-map.html"><span class="nav-link-title">Ports Map</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="./risk.html"><span class="nav-link-title">Risk Analysis</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="./reports.html"><span class="nav-link-title">Reports</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="./settings.html"><span class="nav-link-title">Settings</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+
+        <div class="page-wrapper">
+            <div class="page-header d-print-none">
+                <div class="container-xl">
+                    <div class="row g-2 align-items-center">
+                        <div class="col">
+                            <h2 class="page-title">Port Inspection Map</h2>
+                            <div class="text-muted mt-1">Global inspection locations and bubble sizes represent inspection frequency</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-body">
+                <div class="container-xl">
+                    <!-- Port Statistics Summary -->
+                    <div class="row row-deck row-cards mb-4">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div id="portStatistics">
+                                        <div class="text-center text-muted">Loading port statistics...</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- MOU Region Filters -->
+                    <div class="row row-deck row-cards mb-4">
+                        <div class="col-12">
+                            <div id="mouRegionFilters">
+                                <!-- MOU region filters will be rendered here by regional clustering system -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Interactive Bubble Map -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Port Inspection Bubble Map</h3>
+                                    <div class="card-actions">
+                                        <button class="btn btn-primary btn-sm" onclick="exportChartData('png')">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <path d="M14 3v4a1 1 0 0 0 1 1h4"/>
+                                                <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"/>
+                                                <path d="M9 15h6"/>
+                                                <path d="M12.5 17.5l2.5 -2.5l-2.5 -2.5"/>
+                                            </svg>
+                                            Export
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div id="portsBubbleMap" style="height: 500px;"></div>
+                                    
+                                    <!-- Map Legend -->
+                                    <div class="row mt-4">
+                                        <div class="col-12">
+                                            <div class="card bg-light">
+                                                <div class="card-body py-3">
+                                                    <div class="row text-center">
+                                                        <div class="col-md-3">
+                                                            <div class="d-flex align-items-center justify-content-center">
+                                                                <div class="me-2">
+                                                                    <div style="width: 20px; height: 20px; border-radius: 50%; background-color: var(--psc-success);"></div>
+                                                                </div>
+                                                                <span class="text-sm"><strong>Clean Ports</strong><br><small class="text-muted">No detentions</small></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="d-flex align-items-center justify-content-center">
+                                                                <div class="me-2">
+                                                                    <div style="width: 20px; height: 20px; border-radius: 50%; background-color: #f59e0b;"></div>
+                                                                </div>
+                                                                <span class="text-sm"><strong>Moderate Activity</strong><br><small class="text-muted">3+ inspections</small></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="d-flex align-items-center justify-content-center">
+                                                                <div class="me-2">
+                                                                    <div style="width: 20px; height: 20px; border-radius: 50%; background-color: var(--psc-detention);"></div>
+                                                                </div>
+                                                                <span class="text-sm"><strong>High Risk Ports</strong><br><small class="text-muted">With detentions</small></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="d-flex align-items-center justify-content-center">
+                                                                <div class="me-2">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                                        <circle cx="12" cy="12" r="9"/>
+                                                                        <path d="m9 12l2 2l4 -4"/>
+                                                                    </svg>
+                                                                </div>
+                                                                <span class="text-sm"><strong>Bubble Size</strong><br><small class="text-muted">√(inspections)</small></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Port Details Table -->
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Port Inspection Summary</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table id="portDetailsTable" class="table table-vcenter table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Port</th>
+                                                    <th>Country</th>
+                                                    <th>MOU Region</th>
+                                                    <th>Inspections</th>
+                                                    <th>Detentions</th>
+                                                    <th>Detention Rate</th>
+                                                    <th>Risk Level</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- 실제 데이터로 동적 생성됨 -->
+                                                <tr>
+                                                    <td colspan="7" class="text-center text-muted">
+                                                        항만 데이터 로딩 중...
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
+    <!-- ApexCharts for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.44.0/dist/apexcharts.min.js"></script>
+    <!-- GeoMapper_Ports Geographic Visualization Components -->
+    <script src="../assets/js/port-coordinate-mapper.js"></script>
+    <script src="../assets/js/geo-visualizer-ports.js"></script>
+    <script src="../assets/js/regional-clustering-system.js"></script>
+    <script src="../assets/js/interactive-map-controller.js"></script>
+    <!-- PSC Dashboard JS (main) -->
+    <script src="../assets/js/psc-dashboard.js"></script>
+    <script>
+        // Export chart data function
+        function exportChartData(format = 'png') {
+            console.log('Exporting port map as:', format);
+            alert('Port map export feature - would export as ' + format.toUpperCase());
+        }
+        
+        // Initialize ports map
+        document.addEventListener('DOMContentLoaded', function() {
+            renderPortsMapLayout();
+        });
+        
+        // Make export function global
+        window.exportChartData = exportChartData;
+    </script>
+</body>
+</html>

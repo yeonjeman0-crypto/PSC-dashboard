@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Reports - PSC Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css" rel="stylesheet"/>
+    <link href="../assets/css/psc-custom.css" rel="stylesheet"/>
+</head>
+<body>
+    <div class="page">
+        <!-- Navigation (same pattern) -->
+        <aside class="navbar navbar-vertical navbar-expand-lg" data-bs-theme="dark">
+            <div class="container-fluid">
+                <h1 class="navbar-brand navbar-brand-autodark">
+                    <a href="./dashboard.html">
+                        <img src="https://via.placeholder.com/32x32/6366f1/ffffff?text=PSC" width="110" height="32" alt="PSC" class="navbar-brand-image">
+                        PSC Dashboard
+                    </a>
+                </h1>
+                <div class="collapse navbar-collapse" id="sidebar-menu">
+                    <ul class="navbar-nav pt-lg-3">
+                        <li class="nav-item"><a class="nav-link" href="./dashboard.html"><span class="nav-link-title">Dashboard</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="./inspections.html"><span class="nav-link-title">Inspections (30)</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="./deficiencies.html"><span class="nav-link-title">Deficiencies (87)</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="./vessels.html"><span class="nav-link-title">Vessels (14)</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="./ports-map.html"><span class="nav-link-title">Ports Map</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="./risk.html"><span class="nav-link-title">Risk Analysis</span></a></li>
+                        <li class="nav-item active"><a class="nav-link" href="./reports.html"><span class="nav-link-title">Reports</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="./settings.html"><span class="nav-link-title">Settings</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+
+        <div class="page-wrapper">
+            <div class="page-header d-print-none">
+                <div class="container-xl">
+                    <div class="row g-2 align-items-center">
+                        <div class="col">
+                            <h2 class="page-title">Reports & Analytics</h2>
+                            <div class="text-muted mt-1">Generate comprehensive fleet reports</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-body">
+                <div class="container-xl">
+                    <div class="row row-deck row-cards">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Fleet Summary Report</h3>
+                                </div>
+                                <div class="card-body">
+                                    <p>Comprehensive fleet overview with inspection statistics and compliance metrics.</p>
+                                    <a href="#" class="btn btn-primary">Generate Report</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Inspection History Report</h3>
+                                </div>
+                                <div class="card-body">
+                                    <p>Detailed inspection records with deficiency analysis and trends.</p>
+                                    <a href="#" class="btn btn-primary">Generate Report</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
+</body>
+</html>

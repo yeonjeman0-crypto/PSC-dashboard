@@ -1,0 +1,186 @@
+{
+  "metadata": {
+    "generatedAt": "2025-08-25T13:04:01.137Z",
+    "totalPorts": 10,
+    "totalInspections": 14,
+    "totalDetentions": 3,
+    "mappedPorts": 10,
+    "dataSource": "Real PSC inspection data (02-inspection-records.json)"
+  },
+  "ports": {
+    "San Francisco": {
+      "portName": "San Francisco",
+      "country": "United States",
+      "mouRegion": "USCG",
+      "inspections": 1,
+      "detentions": 0,
+      "deficiencies": 2,
+      "vessels": [
+        "G POSEIDON"
+      ],
+      "vesselCount": 1,
+      "detentionRate": 0,
+      "avgDeficiencies": 2,
+      "latitude": 37.7749,
+      "longitude": -122.4194,
+      "locode": "USSFO"
+    },
+    "Zhoushan": {
+      "portName": "Zhoushan",
+      "country": "China",
+      "mouRegion": "Tokyo MoU",
+      "inspections": 1,
+      "detentions": 1,
+      "deficiencies": 10,
+      "vessels": [
+        "SEA COEN"
+      ],
+      "vesselCount": 1,
+      "detentionRate": 100,
+      "avgDeficiencies": 10,
+      "latitude": 30.0366,
+      "longitude": 122.2067,
+      "locode": "CNZOS"
+    },
+    "Tianjin": {
+      "portName": "Tianjin",
+      "country": "China",
+      "mouRegion": "Tokyo MoU",
+      "inspections": 1,
+      "detentions": 0,
+      "deficiencies": 3,
+      "vessels": [
+        "SJ ASIA"
+      ],
+      "vesselCount": 1,
+      "detentionRate": 0,
+      "avgDeficiencies": 3,
+      "latitude": 39.1042,
+      "longitude": 117.2017,
+      "locode": "CNTXG"
+    },
+    "Koper": {
+      "portName": "Koper",
+      "country": "Slovenia",
+      "mouRegion": "Paris MoU",
+      "inspections": 2,
+      "detentions": 0,
+      "deficiencies": 5,
+      "vessels": [
+        "AH SHIN",
+        "SANG SHIN"
+      ],
+      "vesselCount": 2,
+      "detentionRate": 0,
+      "avgDeficiencies": 2.5,
+      "latitude": 45.5488,
+      "longitude": 13.7301,
+      "locode": "SIKOP"
+    },
+    "Misurata": {
+      "portName": "Misurata",
+      "country": "Libya",
+      "mouRegion": "Mediterranean MoU",
+      "inspections": 1,
+      "detentions": 0,
+      "deficiencies": 4,
+      "vessels": [
+        "HAE SHIN"
+      ],
+      "vesselCount": 1,
+      "detentionRate": 0,
+      "avgDeficiencies": 4,
+      "latitude": 32.3745,
+      "longitude": 15.0919,
+      "locode": "LYMSR"
+    },
+    "Jeddah": {
+      "portName": "Jeddah",
+      "country": "Saudi Arabia",
+      "mouRegion": "Riyadh MoU",
+      "inspections": 1,
+      "detentions": 0,
+      "deficiencies": 1,
+      "vessels": [
+        "AH SHIN"
+      ],
+      "vesselCount": 1,
+      "detentionRate": 0,
+      "avgDeficiencies": 1,
+      "latitude": 21.4858,
+      "longitude": 39.1925,
+      "locode": "SAJED"
+    },
+    "Incheon": {
+      "portName": "Incheon",
+      "country": "South Korea",
+      "mouRegion": "Tokyo MoU",
+      "inspections": 3,
+      "detentions": 2,
+      "deficiencies": 26,
+      "vessels": [
+        "GMT ASTRO",
+        "HAE SHIN",
+        "YOUNG SHIN"
+      ],
+      "vesselCount": 3,
+      "detentionRate": 66.7,
+      "avgDeficiencies": 8.7,
+      "latitude": 37.4563,
+      "longitude": 126.7052,
+      "locode": "KRICN"
+    },
+    "Kaohsiung": {
+      "portName": "Kaohsiung",
+      "country": "Taiwan",
+      "mouRegion": "Tokyo MoU",
+      "inspections": 2,
+      "detentions": 0,
+      "deficiencies": 0,
+      "vessels": [
+        "SJ BUSAN",
+        "SJ COLOMBO"
+      ],
+      "vesselCount": 2,
+      "detentionRate": 0,
+      "avgDeficiencies": 0,
+      "latitude": 22.6273,
+      "longitude": 120.3014,
+      "locode": "TWKHH"
+    },
+    "Benecia": {
+      "portName": "Benecia",
+      "country": "United States",
+      "mouRegion": "USCG",
+      "inspections": 1,
+      "detentions": 0,
+      "deficiencies": 0,
+      "vessels": [
+        "SOO SHIN"
+      ],
+      "vesselCount": 1,
+      "detentionRate": 0,
+      "avgDeficiencies": 0,
+      "latitude": 38.0494,
+      "longitude": -122.1583,
+      "locode": "USBEN"
+    },
+    "Masan": {
+      "portName": "Masan",
+      "country": "South Korea",
+      "mouRegion": "Tokyo MoU",
+      "inspections": 1,
+      "detentions": 0,
+      "deficiencies": 5,
+      "vessels": [
+        "SOO SHIN"
+      ],
+      "vesselCount": 1,
+      "detentionRate": 0,
+      "avgDeficiencies": 5,
+      "latitude": 35.2061,
+      "longitude": 128.5644,
+      "locode": "KRMSP"
+    }
+  }
+}

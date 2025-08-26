@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>PSC Dashboard - Fleet Management System</title>
+    <!-- Tabler Core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/@tabler/icons@2.44.0/icons-sprite.svg" rel="stylesheet"/>
+    <!-- PSC Custom CSS -->
+    <link href="../assets/css/psc-custom.css" rel="stylesheet"/>
+    <style>
+        :root {
+            --psc-inspections: #6366f1;
+            --psc-deficiencies: #f43f5e; 
+            --psc-detention: #8b5cf6;
+            --psc-success: #10b981;
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- Navigation Sidebar -->
+        <aside class="navbar navbar-vertical navbar-expand-lg" data-bs-theme="dark">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar-menu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <h1 class="navbar-brand navbar-brand-autodark">
+                    <a href="./dashboard.html">
+                        <div style="display: inline-block; width: 32px; height: 32px; background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); border-radius: 6px; margin-right: 8px; position: relative; top: -2px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" style="width: 20px; height: 20px; color: white; position: absolute; top: 6px; left: 6px;" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M2 20a2.4 2.4 0 0 0 2 1a2.4 2.4 0 0 0 2 -1a2.4 2.4 0 0 1 2 -1a2.4 2.4 0 0 1 2 1a2.4 2.4 0 0 0 2 1a2.4 2.4 0 0 0 2 -1a2.4 2.4 0 0 1 2 -1a2.4 2.4 0 0 1 2 1a2.4 2.4 0 0 0 2 1a2.4 2.4 0 0 0 2 -1"/>
+                                <path d="M4 18l-1 -3h18l-1 3"/>
+                                <path d="M11 12h7l-7 -9v9"/>
+                                <path d="M8 7l-2 5"/>
+                            </svg>
+                        </div>
+                        PSC Dashboard
+                    </a>
+                </h1>
+                
+                <div class="collapse navbar-collapse" id="sidebar-menu">
+                    <ul class="navbar-nav pt-lg-3">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="./dashboard.html">
+                                <span class="nav-link-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l-2 0l9 -9l9 9l-2 0"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"/><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"/></svg>
+                                </span>
+                                <span class="nav-link-title">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./inspections.html">
+                                <span class="nav-link-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 12l2 2l4 -4"/><path d="M21 12c0 4.97 -4.03 9 -9 9s-9 -4.03 -9 -9s4.03 -9 9 -9s9 4.03 9 9"/></svg>
+                                </span>
+                                <span class="nav-link-title">Inspections (30)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./deficiencies.html">
+                                <span class="nav-link-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 9v2m0 4v.01"/><path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75"/></svg>
+                                </span>
+                                <span class="nav-link-title">Deficiencies (87)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./vessels.html">
+                                <span class="nav-link-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M2 20a2.4 2.4 0 0 0 2 1a2.4 2.4 0 0 0 2 -1a2.4 2.4 0 0 1 2 -1a2.4 2.4 0 0 1 2 1a2.4 2.4 0 0 0 2 1a2.4 2.4 0 0 0 2 -1a2.4 2.4 0 0 1 2 -1a2.4 2.4 0 0 1 2 1a2.4 2.4 0 0 0 2 1a2.4 2.4 0 0 0 2 -1"/><path d="M4 18l-1 -3h18l-1 3"/><path d="M11 12h7l-7 -9v9"/><path d="M8 7l-2 5"/></svg>
+                                </span>
+                                <span class="nav-link-title">Vessels (14)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./ports-map.html">
+                                <span class="nav-link-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"/><path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z"/></svg>
+                                </span>
+                                <span class="nav-link-title">Ports Map</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./risk.html">
+                                <span class="nav-link-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+                                </span>
+                                <span class="nav-link-title">Risk Analysis</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./reports.html">
+                                <span class="nav-link-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"/><path d="M9 9l1 0"/><path d="M9 13l6 0"/><path d="M9 17l6 0"/></svg>
+                                </span>
+                                <span class="nav-link-title">Reports</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./settings.html">
+                                <span class="nav-link-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z"/><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"/></svg>
+                                </span>
+                                <span class="nav-link-title">Settings</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="page-wrapper">
+            <!-- Page Header -->
+            <div class="page-header d-print-none">
+                <div class="container-xl">
+                    <div class="row g-2 align-items-center">
+                        <div class="col">
+                            <h2 class="page-title">
+                                PSC Dashboard
+                            </h2>
+                            <div class="text-muted mt-1">Fleet Overview - 14 Vessels Active</div>
+                        </div>
+                        <div class="col-auto ms-auto d-print-none">
+                            <div class="btn-list">
+                                <span class="d-none d-sm-inline">
+                                    <a href="#" class="btn btn-white" onclick="exportChartData('pdf')">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M14 3v4a1 1 0 0 0 1 1h4"/>
+                                            <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"/>
+                                            <path d="M9 15h6"/>
+                                        </svg>
+                                        Export Report
+                                    </a>
+                                </span>
+                                <span class="d-none d-sm-inline">
+                                    <a href="#" class="btn btn-secondary" onclick="updateRealTimeData()">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4"/>
+                                            <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"/>
+                                        </svg>
+                                        Refresh Data
+                                    </a>
+                                </span>
+                                <a href="#" class="btn btn-primary d-none d-sm-inline-block">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14"/><path d="m5 12l14 0"/></svg>
+                                    New Inspection
+                                </a>
+                            </div>
+                            
+                            <!-- Loading Indicator -->
+                            <div id="loadingIndicator" style="display: none;" class="mt-2">
+                                <div class="progress progress-sm">
+                                    <div class="progress-bar progress-bar-indeterminate"></div>
+                                </div>
+                                <div class="text-muted small text-center mt-1">Updating data...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page Body -->
+            <div class="page-body">
+                <div class="container-xl">
+                    <!-- KPI Cards Row 1 -->
+                    <div class="row row-deck row-cards mb-3" id="kpiCardsContainer">
+                        <!-- Total Vessels Card -->
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="subheader">Total Vessels</div>
+                                        <div class="ms-auto">
+                                            <div class="chart-sparkline chart-sparkline-sm" id="sparkline-vessels"></div>
+                                        </div>
+                                    </div>
+                                    <div class="h1 mb-3" style="color: var(--psc-success)">14</div>
+                                    <div class="d-flex mb-2">
+                                        <div>PC(T)C: 7 vessels</div>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div>Bulk: 7 vessels</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Total Inspections Card -->
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="subheader">Total Inspections</div>
+                                        <div class="ms-auto">
+                                            <div class="chart-sparkline chart-sparkline-sm" id="sparkline-inspections"></div>
+                                        </div>
+                                    </div>
+                                    <div class="h1 mb-3" style="color: var(--psc-inspections)">30</div>
+                                    <div class="d-flex mb-2">
+                                        <div>Clean: 6 (20%)</div>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div>With Deficiencies: 24</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Total Deficiencies Card -->
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="subheader">Total Deficiencies</div>
+                                        <div class="ms-auto">
+                                            <div class="chart-sparkline chart-sparkline-sm" id="sparkline-deficiencies"></div>
+                                        </div>
+                                    </div>
+                                    <div class="h1 mb-3" style="color: var(--psc-deficiencies)">87</div>
+                                    <div class="d-flex mb-2">
+                                        <div>Avg per Inspection: 2.9</div>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div>Critical: 24 deficiencies</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Deficiency Rate Card with Gauge -->
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="subheader">Deficiency Rate</div>
+                                        <div class="ms-auto">
+                                            <div class="chart-sparkline chart-sparkline-sm" id="sparkline-deficiency-rate"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="h1 mb-3" style="color: #f59e0b" id="deficiency-rate-value">2.9</div>
+                                            <div class="d-flex mb-2">
+                                                <div id="deficiency-rate-subtitle">87 def / 30 inspections</div>
+                                            </div>
+                                            <div class="d-flex">
+                                                <div id="deficiency-rate-detail">Above industry avg</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div id="gauge-deficiency-rate" style="height: 120px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- KPI Cards Row 2 -->
+                    <div class="row row-deck row-cards mb-3">
+                        <!-- Detentions Card -->
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="subheader">Total Detentions</div>
+                                        <div class="ms-auto">
+                                            <div class="chart-sparkline chart-sparkline-sm" id="sparkline-detentions"></div>
+                                        </div>
+                                    </div>
+                                    <div class="h1 mb-3" style="color: var(--psc-detention)">4</div>
+                                    <div class="d-flex mb-2">
+                                        <div>YOUNG SHIN, HAE SHIN</div>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div>SEA COEN detained</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Detention Rate Card with Progress Chart -->
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="subheader">Detention Rate</div>
+                                        <div class="ms-auto">
+                                            <div class="chart-sparkline chart-sparkline-sm" id="sparkline-detention-rate"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="h1 mb-3" style="color: var(--psc-detention)" id="detention-rate-value">13.3%</div>
+                                            <div class="d-flex mb-2">
+                                                <div id="detention-rate-subtitle">4 detentions / 30 inspections</div>
+                                            </div>
+                                            <div class="d-flex">
+                                                <div id="detention-rate-detail">High risk fleet</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div id="progress-detention-rate" style="height: 120px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Average Deficiencies per Vessel -->
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="subheader">Avg Def per Vessel</div>
+                                        <div class="ms-auto">
+                                            <div class="chart-sparkline chart-sparkline-sm" id="sparkline-avg-def-vessel"></div>
+                                        </div>
+                                    </div>
+                                    <div class="h1 mb-3" style="color: #f59e0b">6.2</div>
+                                    <div class="d-flex mb-2">
+                                        <div>87 def / 14 vessels</div>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div>Needs improvement</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Top Deficiency Code -->
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="subheader">Top Def Code</div>
+                                        <div class="ms-auto">
+                                            <div class="chart-sparkline chart-sparkline-sm" id="sparkline-top-def-code"></div>
+                                        </div>
+                                    </div>
+                                    <div class="h1 mb-3" style="color: var(--psc-deficiencies)">15150</div>
+                                    <div class="d-flex mb-2">
+                                        <div>Fire Safety: 15 occurrences</div>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div>17% of all deficiencies</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Additional KPI Card -->
+                    <div class="row row-deck row-cards mb-3">
+                        <!-- High Risk Ships -->
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="subheader">High Risk Ships</div>
+                                        <div class="ms-auto">
+                                            <div class="chart-sparkline chart-sparkline-sm" id="sparkline-high-risk"></div>
+                                        </div>
+                                    </div>
+                                    <div class="h1 mb-3" style="color: var(--psc-deficiencies)">7</div>
+                                    <div class="d-flex mb-2">
+                                        <div>50% of fleet at risk</div>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div>Detention or 5+ deficiencies</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Spacer columns for alignment -->
+                        <div class="col-sm-6 col-lg-3"></div>
+                        <div class="col-sm-6 col-lg-3"></div>
+                        <div class="col-sm-6 col-lg-3"></div>
+                    </div>
+
+                    <!-- Charts and Analytics Row 1 -->
+                    <div class="row row-deck row-cards mb-3">
+                        <!-- Top 10 Deficiency Codes -->
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Top 10 Deficiency Codes</h3>
+                                    <div class="card-actions">
+                                        <a href="#" class="btn btn-primary btn-sm" onclick="handleChartClick('deficiencies')">
+                                            View All Codes
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div id="topDeficiencyChart" style="height: 400px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Fleet Composition -->
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Fleet Composition</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div id="fleetCompositionChart" style="height: 300px;"></div>
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <div class="text-center">
+                                                <div class="text-muted">DOC Companies</div>
+                                                <div class="h6 mb-1">DORIKO: 12 vessels</div>
+                                                <div class="h6 mb-1">DOUBLERICH: 2 vessels</div>
+                                                <div class="text-muted mt-2">Main Owner</div>
+                                                <div class="h6 mb-0">SAMJOO: 9 vessels</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Charts and Analytics Row 2 -->
+                    <div class="row row-deck row-cards mb-3">
+                        <!-- Inspection Trend Analysis -->
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Inspection Trend Analysis</h3>
+                                    <div class="card-actions">
+                                        <a href="#" class="btn btn-primary btn-sm" onclick="handleChartClick('trends')">
+                                            View Details
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div id="inspectionTrendChart" style="height: 350px;"></div>
+                                    <div class="row mt-3">
+                                        <div class="col">
+                                            <div class="text-center">
+                                                <div class="text-muted">Peak Month</div>
+                                                <div class="h4 mb-0">February</div>
+                                                <div class="small text-muted">12 inspections</div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="text-center">
+                                                <div class="text-muted">Clean Rate</div>
+                                                <div class="h4 mb-0">20%</div>
+                                                <div class="small text-muted">6 of 30</div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="text-center">
+                                                <div class="text-muted">Detention Rate</div>
+                                                <div class="h4 mb-0">13.3%</div>
+                                                <div class="small text-muted">4 of 30</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Monthly Inspection Summary -->
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Monthly Summary</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div id="monthlyInspectionChart" style="height: 300px;"></div>
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <div class="text-center">
+                                                <div class="text-muted">YTD 2025</div>
+                                                <div class="h4 mb-2">30 Total</div>
+                                                <div class="progress mb-2" style="height: 6px;">
+                                                    <div class="progress-bar bg-success" style="width: 20%"></div>
+                                                    <div class="progress-bar bg-warning" style="width: 66.7%"></div>
+                                                    <div class="progress-bar bg-danger" style="width: 13.3%"></div>
+                                                </div>
+                                                <div class="small text-muted">
+                                                    Clean: 6 | Deficiencies: 20 | Detentions: 4
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Heat Map and Recent Activity -->
+                    <div class="row row-deck row-cards">
+                        <!-- MOU Deficiency Rate Heat Map -->
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">MOU Deficiency Rate Heat Map</h3>
+                                    <div class="card-actions">
+                                        <a href="#" class="btn btn-primary btn-sm" onclick="handleChartClick('heatmap')">
+                                            Full Analysis
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div id="mouHeatChart" style="height: 300px;"></div>
+                                    <div class="row mt-3">
+                                        <div class="col">
+                                            <div class="text-center">
+                                                <div class="text-muted">Highest Risk</div>
+                                                <div class="h5 mb-0">Tokyo MoU</div>
+                                                <div class="small text-muted">100% Feb deficiency rate</div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="text-center">
+                                                <div class="text-muted">Best Performance</div>
+                                                <div class="h5 mb-0">USCG</div>
+                                                <div class="small text-muted">0% deficiency rate</div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="text-center">
+                                                <div class="text-muted">Overall Rate</div>
+                                                <div class="h5 mb-0">80%</div>
+                                                <div class="small text-muted">24 of 30 inspections</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Traditional table as backup -->
+                                    <div class="table-responsive mt-4" style="display: none;" id="heatMapTableFallback">
+                                        <table class="table table-vcenter">
+                                            <thead>
+                                                <tr>
+                                                    <th>MOU Region</th>
+                                                    <th>Jan</th>
+                                                    <th>Feb</th>
+                                                    <th>Mar</th>
+                                                    <th>Apr</th>
+                                                    <th>May</th>
+                                                    <th>Jun</th>
+                                                    <th>Jul</th>
+                                                    <th>Aug</th>
+                                                    <th>Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="fw-bold">Paris MoU</td>
+                                                    <td><span class="badge bg-success">2</span></td>
+                                                    <td><span class="badge bg-warning">4</span></td>
+                                                    <td><span class="badge bg-secondary">0</span></td>
+                                                    <td><span class="badge bg-success">1</span></td>
+                                                    <td><span class="badge bg-success">1</span></td>
+                                                    <td><span class="badge bg-secondary">0</span></td>
+                                                    <td><span class="badge bg-secondary">0</span></td>
+                                                    <td><span class="badge bg-success">1</span></td>
+                                                    <td><span class="fw-bold">9</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="fw-bold">Tokyo MoU</td>
+                                                    <td><span class="badge bg-success">2</span></td>
+                                                    <td><span class="badge bg-danger">8</span></td>
+                                                    <td><span class="badge bg-secondary">0</span></td>
+                                                    <td><span class="badge bg-secondary">0</span></td>
+                                                    <td><span class="badge bg-secondary">0</span></td>
+                                                    <td><span class="badge bg-secondary">0</span></td>
+                                                    <td><span class="badge bg-success">1</span></td>
+                                                    <td><span class="badge bg-secondary">0</span></td>
+                                                    <td><span class="fw-bold">11</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="fw-bold">USCG</td>
+                                                    <td><span class="badge bg-success">1</span></td>
+                                                    <td><span class="badge bg-secondary">0</span></td>
+                                                    <td><span class="badge bg-secondary">0</span></td>
+                                                    <td><span class="badge bg-secondary">0</span></td>
+                                                    <td><span class="badge bg-secondary">0</span></td>
+                                                    <td><span class="badge bg-secondary">0</span></td>
+                                                    <td><span class="badge bg-secondary">0</span></td>
+                                                    <td><span class="badge bg-secondary">0</span></td>
+                                                    <td><span class="fw-bold">1</span></td>
+                                                </tr>
+                                                <tr class="fw-bold bg-light">
+                                                    <td>Monthly Total</td>
+                                                    <td>5</td>
+                                                    <td>12</td>
+                                                    <td>0</td>
+                                                    <td>1</td>
+                                                    <td>1</td>
+                                                    <td>0</td>
+                                                    <td>1</td>
+                                                    <td>1</td>
+                                                    <td class="text-primary">30</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Recent Activity Feed -->
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Recent Inspections</h3>
+                                </div>
+                                <div class="card-body card-body-scrollable card-body-scrollable-shadow" style="height: 28rem">
+                                    <div class="divide-y" id="recentActivityFeed">
+                                        <div>
+                                            <div class="row">
+                                                <div class="col-auto">
+                                                    <span class="avatar avatar-rounded" style="background-color: var(--psc-deficiencies)">SF</span>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="text-truncate">
+                                                        <strong>SOO SHIN</strong> - 5 deficiencies found
+                                                    </div>
+                                                    <div class="text-muted">Aug 11, 2025 • Busan Port</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="row">
+                                                <div class="col-auto">
+                                                    <span class="avatar avatar-rounded" style="background-color: var(--psc-deficiencies)">DG</span>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="text-truncate">
+                                                        <strong>DAEBO GLADSTONE</strong> - 2 deficiencies
+                                                    </div>
+                                                    <div class="text-muted">Jul 10, 2025 • Singapore</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="row">
+                                                <div class="col-auto">
+                                                    <span class="avatar avatar-rounded" style="background-color: var(--psc-detention)">YS</span>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="text-truncate">
+                                                        <strong>YOUNG SHIN</strong> - Detained (8 def.)
+                                                    </div>
+                                                    <div class="text-muted">May 26, 2025 • Tokyo</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="row">
+                                                <div class="col-auto">
+                                                    <span class="avatar avatar-rounded" style="background-color: var(--psc-detention)">HS</span>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="text-truncate">
+                                                        <strong>HAE SHIN</strong> - Detained
+                                                    </div>
+                                                    <div class="text-muted">Apr 30, 2025 • Rotterdam</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="row">
+                                                <div class="col-auto">
+                                                    <span class="avatar avatar-rounded" style="background-color: var(--psc-success)">SC</span>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="text-truncate">
+                                                        <strong>SJ COLOMBO</strong> - Clean Inspection
+                                                    </div>
+                                                    <div class="text-muted">Feb 13, 2025 • Colombo</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabler Core JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
+    <!-- ApexCharts for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.44.0/dist/apexcharts.min.js"></script>
+    <!-- PSC Integrated System -->
+    <script src="../assets/js/state-management.js"></script>
+    <script src="../assets/js/api-endpoints.js"></script>
+    <script src="../assets/js/performance-optimizer.js"></script>
+    <script src="../assets/js/module-integration.js"></script>
+    <!-- ChartSpecialist_Apex Implementation -->
+    <script src="../assets/js/chart-specialist-apex.js"></script>
+    <script src="../components/kpi-cards-apex.js"></script>
+    <script src="../assets/js/dashboard-integration-apex.js"></script>
+    
+    <!-- Legacy PSC Dashboard Components (for compatibility) -->
+    <script src="../components/navigation.js"></script>
+    <script src="../components/data-filters.js"></script>
+    <script src="../components/chart-containers.js"></script>
+    
+    <!-- System Validation -->
+    <script src="../assets/js/system-integration-validator.js"></script>
+    <script src="../assets/js/validation-apex-charts.js"></script>
+    
+    <script>
+        /**
+         * PSC Dashboard with ApexCharts Integration
+         * All functions use proper camelCase naming conventions
+         * Real-time data integration with actual PSC data
+         */
+        
+        // Dashboard will be initialized automatically by dashboard-integration-apex.js
+        // Functions are made globally available for backward compatibility
+        
+        console.log('🚀 PSC Dashboard with ChartSpecialist_Apex ready');
+        
+        // Debug helper to check dashboard status
+        function getDashboardStatus() {
+            if (window.dashboardIntegration) {
+                return window.dashboardIntegration.getDebugInfo();
+            } else {
+                return { error: 'Dashboard not initialized' };
+            }
+        }
+        
+        // Manual refresh function for testing
+        function manualRefresh() {
+            console.log('🔄 Manual refresh triggered');
+            if (window.dashboardIntegration) {
+                window.dashboardIntegration.updateRealTimeData();
+            }
+        }
+        
+        // Export dashboard status for debugging
+        window.getDashboardStatus = getDashboardStatus;
+        window.manualRefresh = manualRefresh;
+        
+        // Log successful script loading
+        console.log('✅ PSC Dashboard scripts loaded successfully');
+    </script>
+</body>
+</html>

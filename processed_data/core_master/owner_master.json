@@ -1,0 +1,55 @@
+{
+  "schema_version": "v1.0.0",
+  "generated_at": "2025-08-25T10:30:00.000Z",
+  "data_source": "Extracted from 01-fleet-master.json",
+  "total_owners": 5,
+  "owners": [
+    {
+      "owner_id": "OWN001",
+      "owner_name": "SAMJOO",
+      "vessel_count": 9,
+      "vessel_types": ["PC(T)C", "Bulk"],
+      "fleet_category": "Major Owner"
+    },
+    {
+      "owner_id": "OWN002", 
+      "owner_name": "GMT",
+      "vessel_count": 1,
+      "vessel_types": ["PC(T)C"],
+      "fleet_category": "Minor Owner"
+    },
+    {
+      "owner_id": "OWN003",
+      "owner_name": "SW", 
+      "vessel_count": 2,
+      "vessel_types": ["Bulk"],
+      "fleet_category": "Minor Owner"
+    },
+    {
+      "owner_id": "OWN004",
+      "owner_name": "WOORI",
+      "vessel_count": 1,
+      "vessel_types": ["Bulk"],
+      "fleet_category": "Minor Owner"
+    },
+    {
+      "owner_id": "OWN005",
+      "owner_name": "DAEBO",
+      "vessel_count": 1,
+      "vessel_types": ["Bulk"],
+      "fleet_category": "Minor Owner"
+    }
+  ],
+  "owner_statistics": {
+    "by_fleet_size": {
+      "Major (5+ vessels)": 1,
+      "Minor (1-4 vessels)": 4
+    },
+    "total_vessels_managed": 14
+  },
+  "validation": {
+    "record_count": 5,
+    "completeness_score": 100.0,
+    "data_quality": "A+"
+  }
+}

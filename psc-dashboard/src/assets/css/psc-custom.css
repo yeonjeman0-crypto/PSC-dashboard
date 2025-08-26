@@ -1,0 +1,629 @@
+/* PSC Dashboard Custom Styles */
+/* Tabler customization with PSC brand colors */
+
+:root {
+    /* PSC Brand Colors */
+    --psc-inspections: #6366f1;     /* Indigo for Inspections */
+    --psc-deficiencies: #f43f5e;    /* Rose for Deficiencies */
+    --psc-detention: #8b5cf6;       /* Violet for Detentions */
+    --psc-success: #10b981;         /* Emerald for Success/Clean */
+    
+    /* Extended color palette */
+    --psc-warning: #f59e0b;         /* Amber for warnings */
+    --psc-info: #3b82f6;            /* Blue for information */
+    --psc-dark: #1f2937;            /* Gray for dark elements */
+    --psc-light: #f8fafc;           /* Light gray for backgrounds */
+    
+    /* Overriding default Tabler primary */
+    --tblr-primary: var(--psc-inspections);
+}
+
+/* Navigation customizations */
+.navbar-brand-image {
+    border-radius: 6px;
+}
+
+.navbar-vertical .navbar-nav .nav-link.active {
+    background-color: var(--psc-inspections);
+    color: white;
+}
+
+.navbar-vertical .navbar-nav .nav-link:hover {
+    background-color: rgba(99, 102, 241, 0.1);
+}
+
+/* KPI Cards styling */
+.kpi-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.kpi-card-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.kpi-card-description {
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+.kpi-card-change {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.kpi-card-change.positive {
+    color: var(--psc-success);
+}
+
+.kpi-card-change.negative {
+    color: var(--psc-deficiencies);
+}
+
+/* Chart containers */
+.chart-container {
+    position: relative;
+    height: 300px;
+    width: 100%;
+}
+
+.chart-container-small {
+    height: 200px;
+}
+
+.chart-container-large {
+    height: 400px;
+}
+
+/* Filter panel styling */
+.filter-panel {
+    background-color: var(--psc-light);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.filter-component {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: end;
+}
+
+.filter-component .form-floating {
+    min-width: 200px;
+    flex: 1;
+}
+
+.filter-component .btn {
+    height: calc(3.5rem + 2px);
+}
+
+/* Vessel cards styling */
+.vessel-card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    border-left: 4px solid transparent;
+}
+
+.vessel-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.vessel-card.high-risk {
+    border-left-color: var(--psc-deficiencies);
+}
+
+.vessel-card.medium-risk {
+    border-left-color: var(--psc-warning);
+}
+
+.vessel-card.low-risk {
+    border-left-color: var(--psc-success);
+}
+
+.vessel-status-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 0.5rem;
+}
+
+.vessel-status-indicator.active {
+    background-color: var(--psc-success);
+}
+
+.vessel-status-indicator.maintenance {
+    background-color: var(--psc-warning);
+}
+
+.vessel-status-indicator.inactive {
+    background-color: #6b7280;
+}
+
+/* Table enhancements */
+.table-responsive {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table th {
+    background-color: var(--psc-light);
+    border-top: none;
+    font-weight: 600;
+    color: var(--psc-dark);
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(248, 250, 252, 0.5);
+}
+
+/* Badge customizations */
+.badge.bg-inspection {
+    background-color: var(--psc-inspections) !important;
+}
+
+.badge.bg-deficiency {
+    background-color: var(--psc-deficiencies) !important;
+}
+
+.badge.bg-detention {
+    background-color: var(--psc-detention) !important;
+}
+
+/* Heat map table styling */
+.heat-map-table {
+    background-color: white;
+    border-radius: 8px;
+}
+
+.heat-map-table .badge {
+    min-width: 2rem;
+    text-align: center;
+}
+
+/* Activity feed styling */
+.activity-feed {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.activity-feed .activity-item {
+    padding: 1rem 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.activity-feed .activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+/* Modal customizations */
+.modal-header {
+    background-color: var(--psc-light);
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.modal-footer {
+    border-top: 1px solid #e5e7eb;
+}
+
+/* Button customizations */
+.btn-primary {
+    background-color: var(--psc-inspections);
+    border-color: var(--psc-inspections);
+}
+
+.btn-primary:hover {
+    background-color: #4f46e5;
+    border-color: #4f46e5;
+}
+
+.btn-outline-primary {
+    color: var(--psc-inspections);
+    border-color: var(--psc-inspections);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--psc-inspections);
+    border-color: var(--psc-inspections);
+}
+
+/* Progress bars */
+.progress-bar {
+    transition: width 0.6s ease;
+}
+
+.progress-bar.bg-inspection {
+    background-color: var(--psc-inspections);
+}
+
+.progress-bar.bg-deficiency {
+    background-color: var(--psc-deficiencies);
+}
+
+.progress-bar.bg-detention {
+    background-color: var(--psc-detention);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .kpi-card-value {
+        font-size: 2rem;
+    }
+    
+    .filter-component {
+        flex-direction: column;
+    }
+    
+    .filter-component .form-floating {
+        min-width: 100%;
+    }
+    
+    .chart-container {
+        height: 250px;
+    }
+    
+    .vessel-card .row {
+        text-align: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .kpi-card-value {
+        font-size: 1.75rem;
+    }
+    
+    .chart-container {
+        height: 200px;
+    }
+    
+    .table-responsive {
+        font-size: 0.875rem;
+    }
+}
+
+/* Loading states */
+.loading-skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, transparent 37%, #f0f0f0 63%);
+    background-size: 400% 100%;
+    animation: skeleton-loading 1.4s ease infinite;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0 50%;
+    }
+}
+
+/* Card hover effects */
+.card {
+    transition: box-shadow 0.15s ease-in-out;
+}
+
+.card:hover {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075), 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* Status indicators */
+.status-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.status-indicator.clean {
+    color: var(--psc-success);
+}
+
+.status-indicator.deficiencies {
+    color: var(--psc-warning);
+}
+
+.status-indicator.detention {
+    color: var(--psc-deficiencies);
+}
+
+.status-indicator.critical {
+    color: var(--psc-detention);
+}
+
+/* Animation utilities */
+.fade-in {
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Risk Analysis Page Styles */
+.risk-summary-cards .card-sm {
+    min-height: 120px;
+}
+
+.risk-summary-cards .avatar {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.25rem;
+}
+
+.risk-matrix-heatmap {
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.risk-matrix-heatmap .apexcharts-tooltip {
+    background: rgba(0, 0, 0, 0.8) !important;
+    color: white !important;
+    border-radius: 6px !important;
+    border: none !important;
+}
+
+.vessel-risk-ranking .progress {
+    height: 8px;
+}
+
+.vessel-risk-ranking .progress-bar {
+    transition: width 0.3s ease;
+}
+
+.scenario-simulator {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border-radius: 12px;
+    padding: 2rem;
+}
+
+.scenario-results {
+    background: white;
+    border-radius: 8px;
+    border-left: 4px solid var(--psc-inspections);
+    padding: 1.5rem;
+}
+
+.top-risk-vessels .list-group-item {
+    border-left: 4px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.top-risk-vessels .list-group-item:hover {
+    background-color: rgba(248, 250, 252, 0.8);
+    border-left-color: var(--psc-inspections);
+}
+
+/* Risk Color Classes */
+.risk-critical {
+    background-color: #dc2626 !important;
+    color: white !important;
+}
+
+.risk-high {
+    background-color: #f97316 !important;
+    color: white !important;
+}
+
+.risk-elevated {
+    background-color: #f59e0b !important;
+    color: white !important;
+}
+
+.risk-moderate {
+    background-color: #eab308 !important;
+    color: white !important;
+}
+
+.risk-low {
+    background-color: #10b981 !important;
+    color: white !important;
+}
+
+/* Risk Matrix Colors */
+.matrix-cell-green {
+    background-color: #10b981 !important;
+    color: white !important;
+}
+
+.matrix-cell-amber {
+    background-color: #f59e0b !important;
+    color: white !important;
+}
+
+.matrix-cell-red {
+    background-color: #dc2626 !important;
+    color: white !important;
+}
+
+/* Custom tooltip styles for risk charts */
+.custom-tooltip {
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    line-height: 1.4;
+    min-width: 150px;
+}
+
+.custom-tooltip .fw-bold {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+/* Risk factor breakdown styles */
+.risk-factor-breakdown .progress {
+    height: 6px;
+    border-radius: 3px;
+}
+
+.risk-factor-breakdown .small {
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+
+/* Scenario simulator enhancements */
+.scenario-results .h3 {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.scenario-results .progress {
+    height: 12px;
+    border-radius: 6px;
+}
+
+.scenario-recommendations ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.scenario-recommendations li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.scenario-recommendations li:last-child {
+    border-bottom: none;
+}
+
+/* Risk level badges with enhanced styling */
+.badge.risk-level {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+}
+
+/* Enhanced card hover effects for risk analysis */
+.risk-analysis-card {
+    transition: all 0.2s ease-in-out;
+    border: 1px solid #e5e7eb;
+}
+
+.risk-analysis-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    border-color: var(--psc-inspections);
+}
+
+/* Risk assessment table enhancements */
+.vessel-risk-table .avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.vessel-risk-table .badge {
+    font-size: 0.75rem;
+    min-width: 80px;
+    text-align: center;
+}
+
+/* Risk matrix legend modal styling */
+.modal-body .avatar {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: white;
+}
+
+/* Responsive adjustments for risk analysis */
+@media (max-width: 768px) {
+    .risk-summary-cards .card-sm {
+        min-height: 100px;
+    }
+    
+    .risk-summary-cards .avatar {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1rem;
+    }
+    
+    .scenario-simulator {
+        padding: 1rem;
+    }
+    
+    .vessel-risk-table {
+        font-size: 0.875rem;
+    }
+    
+    .vessel-risk-table .avatar {
+        width: 2rem;
+        height: 2rem;
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .top-risk-vessels .avatar {
+        width: 2rem;
+        height: 2rem;
+        font-size: 0.75rem;
+    }
+    
+    .scenario-results .h3 {
+        font-size: 1.5rem;
+    }
+    
+    .risk-matrix-heatmap {
+        padding: 0.5rem;
+    }
+}
+
+/* Print styles */
+@media print {
+    .page-header,
+    .btn,
+    .dropdown,
+    .card-actions {
+        display: none !important;
+    }
+    
+    .card {
+        border: 1px solid #dee2e6 !important;
+        box-shadow: none !important;
+    }
+    
+    .table {
+        font-size: 0.8rem;
+    }
+    
+    .scenario-simulator,
+    .scenario-results {
+        background: white !important;
+        border: 1px solid #dee2e6 !important;
+    }
+}

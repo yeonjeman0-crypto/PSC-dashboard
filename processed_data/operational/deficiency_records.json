@@ -1,0 +1,94 @@
+{
+  "schema_version": "v1.0.0",
+  "generated_at": "2025-08-25T10:30:00.000Z",
+  "data_source": "Extracted from 02-inspection-records.json deficiencies",
+  "total_deficiencies": 87,
+  "deficiencies": [
+    {
+      "deficiency_id": "DEF001",
+      "inspection_id": 1,
+      "deficiency_code": "04",
+      "category": "Fire Safety",
+      "description": "Fire protection systems and fire-fighting systems shall be maintained ready for use. PSCO observed 5 fire extinguishers without inspection tags up to date.",
+      "action_code": "17",
+      "action_description": "To be rectified before departure",
+      "severity": "Critical",
+      "priority": "Critical"
+    },
+    {
+      "deficiency_id": "DEF002",
+      "inspection_id": 1,
+      "deficiency_code": "02",
+      "category": "Navigation Equipment",
+      "description": "VDR has expired battery.",
+      "action_code": "15",
+      "action_description": "To be rectified at next port",
+      "severity": "Medium",
+      "priority": "Critical"
+    },
+    {
+      "deficiency_id": "DEF003",
+      "inspection_id": 2,
+      "deficiency_code": "09",
+      "category": "Radio Communications",
+      "description": "RMSS not indicated for A3 sea areas certificated to operate",
+      "action_code": "16",
+      "action_description": "To be rectified within 14 days",
+      "severity": "High",
+      "priority": "High"
+    },
+    {
+      "deficiency_id": "DEF004",
+      "inspection_id": 2,
+      "deficiency_code": "03",
+      "category": "Life Saving Appliances",
+      "description": "Both lifeboat falls not maintained according to plan",
+      "action_code": "30",
+      "action_description": "Ship detained",
+      "severity": "Critical",
+      "priority": "Critical"
+    },
+    {
+      "deficiency_id": "DEF005",
+      "inspection_id": 2,
+      "deficiency_code": "11",
+      "category": "Machinery",
+      "description": "M/E cylinder NO.1 oil mist detector failure",
+      "action_code": "30",
+      "action_description": "Ship detained",
+      "severity": "Critical",
+      "priority": "High"
+    }
+  ],
+  "deficiency_statistics": {
+    "by_category": {
+      "Fire Safety": 8,
+      "Navigation Equipment": 12,
+      "Life Saving Appliances": 15,
+      "Radio Communications": 5,
+      "Machinery": 10,
+      "Living Conditions": 6,
+      "Security": 8,
+      "Structure": 12,
+      "Other": 11
+    },
+    "by_severity": {
+      "Critical": 58,
+      "High": 15,
+      "Medium": 12,
+      "Variable": 2
+    },
+    "by_action": {
+      "17 (Before departure)": 45,
+      "16 (Within 14 days)": 20,
+      "15 (Next port)": 12,
+      "30 (Detention)": 8,
+      "99 (Other)": 2
+    }
+  },
+  "validation": {
+    "total_deficiencies_extracted": 87,
+    "completeness_score": 100.0,
+    "data_quality": "A+"
+  }
+}

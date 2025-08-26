@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Inspections - PSC Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css" rel="stylesheet"/>
+    <link href="../assets/css/psc-custom.css" rel="stylesheet"/>
+    <style>
+        :root {
+            --psc-inspections: #6366f1;
+            --psc-deficiencies: #f43f5e; 
+            --psc-detention: #8b5cf6;
+            --psc-success: #10b981;
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- Navigation Sidebar (Same as dashboard) -->
+        <aside class="navbar navbar-vertical navbar-expand-lg" data-bs-theme="dark">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar-menu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <h1 class="navbar-brand navbar-brand-autodark">
+                    <a href="./dashboard.html">
+                        <div style="display: inline-block; width: 32px; height: 32px; background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); border-radius: 6px; margin-right: 8px; position: relative; top: -2px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" style="width: 20px; height: 20px; color: white; position: absolute; top: 6px; left: 6px;" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M2 20a2.4 2.4 0 0 0 2 1a2.4 2.4 0 0 0 2 -1a2.4 2.4 0 0 1 2 -1a2.4 2.4 0 0 1 2 1a2.4 2.4 0 0 0 2 1a2.4 2.4 0 0 0 2 -1a2.4 2.4 0 0 1 2 -1a2.4 2.4 0 0 1 2 1a2.4 2.4 0 0 0 2 1a2.4 2.4 0 0 0 2 -1"/>
+                                <path d="M4 18l-1 -3h18l-1 3"/>
+                                <path d="M11 12h7l-7 -9v9"/>
+                                <path d="M8 7l-2 5"/>
+                            </svg>
+                        </div>
+                        PSC Dashboard
+                    </a>
+                </h1>
+                
+                <div class="collapse navbar-collapse" id="sidebar-menu">
+                    <ul class="navbar-nav pt-lg-3">
+                        <li class="nav-item">
+                            <a class="nav-link" href="./dashboard.html">
+                                <span class="nav-link-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l-2 0l9 -9l9 9l-2 0"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"/><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"/></svg>
+                                </span>
+                                <span class="nav-link-title">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="./inspections.html">
+                                <span class="nav-link-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 12l2 2l4 -4"/><path d="M21 12c0 4.97 -4.03 9 -9 9s-9 -4.03 -9 -9s4.03 -9 9 -9s9 4.03 9 9"/></svg>
+                                </span>
+                                <span class="nav-link-title">Inspections (30)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./deficiencies.html">
+                                <span class="nav-link-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 9v2m0 4v.01"/><path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75"/></svg>
+                                </span>
+                                <span class="nav-link-title">Deficiencies (87)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./vessels.html">
+                                <span class="nav-link-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M2 20a2.4 2.4 0 0 0 2 1a2.4 2.4 0 0 0 2 -1a2.4 2.4 0 0 1 2 -1a2.4 2.4 0 0 1 2 1a2.4 2.4 0 0 0 2 1a2.4 2.4 0 0 0 2 -1a2.4 2.4 0 0 1 2 -1a2.4 2.4 0 0 1 2 1a2.4 2.4 0 0 0 2 1a2.4 2.4 0 0 0 2 -1"/><path d="M4 18l-1 -3h18l-1 3"/><path d="M11 12h7l-7 -9v9"/><path d="M8 7l-2 5"/></svg>
+                                </span>
+                                <span class="nav-link-title">Vessels (14)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./ports-map.html">
+                                <span class="nav-link-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"/><path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z"/></svg>
+                                </span>
+                                <span class="nav-link-title">Ports Map</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./risk.html">
+                                <span class="nav-link-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+                                </span>
+                                <span class="nav-link-title">Risk Analysis</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./reports.html">
+                                <span class="nav-link-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"/><path d="M9 9l1 0"/><path d="M9 13l6 0"/><path d="M9 17l6 0"/></svg>
+                                </span>
+                                <span class="nav-link-title">Reports</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./settings.html">
+                                <span class="nav-link-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z"/><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"/></svg>
+                                </span>
+                                <span class="nav-link-title">Settings</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="page-wrapper">
+            <!-- Page Header -->
+            <div class="page-header d-print-none">
+                <div class="container-xl">
+                    <div class="row g-2 align-items-center">
+                        <div class="col">
+                            <h2 class="page-title">
+                                Inspections
+                            </h2>
+                            <div class="text-muted mt-1">30 total inspections • 6 clean • 4 detentions</div>
+                        </div>
+                        <div class="col-auto ms-auto d-print-none">
+                            <div class="btn-list">
+                                <div class="dropdown">
+                                    <button class="btn btn-white dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M5 12v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-5"/><path d="M5 12l-2 0l9 -9l9 9l-2 0"/></svg>
+                                        Export Data
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-end">
+                                        <a class="dropdown-item" href="#" onclick="exportAllInspections()">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"/></svg>
+                                            All Inspections (CSV)
+                                        </a>
+                                        <a class="dropdown-item" href="#" onclick="exportMouAnalysis()">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/><path d="M9 8m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/><path d="M15 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/></svg>
+                                            MOU Analysis (CSV)
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#" onclick="window.print()">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2"/><path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4"/><path d="M7 13m0 2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2z"/></svg>
+                                            Print Report
+                                        </a>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary d-none d-sm-inline-block" onclick="updateInspectionData()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4"/><path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"/></svg>
+                                    Refresh Data
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page Body -->
+            <div class="page-body">
+                <div class="container-xl">
+                    <!-- Filter Section -->
+                    <div class="row mb-3">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row g-2" id="inspectionFilterPanel">
+                                        <div class="col-md-2">
+                                            <div class="form-floating">
+                                                <select class="form-select" id="filterMou" name="filterMou">
+                                                    <option value="">All MOU</option>
+                                                    <option value="Paris MoU">Paris MoU</option>
+                                                    <option value="Tokyo MoU">Tokyo MoU</option>
+                                                    <option value="USCG">USCG</option>
+                                                </select>
+                                                <label for="filterMou">MOU Region</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-floating">
+                                                <select class="form-select" id="filterVesselType" name="filterVesselType">
+                                                    <option value="">All Types</option>
+                                                    <option value="PC(T)C">PC(T)C</option>
+                                                    <option value="Bulk">Bulk Carrier</option>
+                                                </select>
+                                                <label for="filterVesselType">Vessel Type</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-floating">
+                                                <select class="form-select" id="filterOutcome" name="filterOutcome">
+                                                    <option value="">All Outcomes</option>
+                                                    <option value="Clean">Clean</option>
+                                                    <option value="Deficiencies Found">Deficiencies Found</option>
+                                                    <option value="Detention">Detention</option>
+                                                </select>
+                                                <label for="filterOutcome">Inspection Outcome</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-floating">
+                                                <select class="form-select" id="filterMonth" name="filterMonth">
+                                                    <option value="">All Months</option>
+                                                    <option value="1">January</option>
+                                                    <option value="2">February</option>
+                                                    <option value="3">March</option>
+                                                    <option value="4">April</option>
+                                                    <option value="5">May</option>
+                                                    <option value="6">June</option>
+                                                    <option value="7">July</option>
+                                                    <option value="8">August</option>
+                                                </select>
+                                                <label for="filterMonth">Month</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control" id="searchVessel" name="searchVessel" placeholder="Search vessels...">
+                                                <label for="searchVessel">Search Vessel</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="button" class="btn btn-primary h-100" onclick="applyInspectionFilters()">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"/><path d="m21 21l-6 -6"/></svg>
+                                                Filter
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MOU Performance Analysis -->
+                    <div class="row mb-3">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">MOU Regional Performance Analysis</h3>
+                                    <div class="card-actions">
+                                        <button class="btn btn-sm btn-outline-primary" onclick="generateMouComparisonChart()">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/><path d="M9 8m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/><path d="M15 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/></svg>
+                                            Generate Chart
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div id="mouComparisonChart"></div>
+                                    <div class="row mt-3" id="mouStatsSummary">
+                                        <div class="col-md-3">
+                                            <div class="text-center">
+                                                <div class="h2 text-blue">5</div>
+                                                <div class="text-muted">MOU Regions</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="text-center">
+                                                <div class="h2 text-green">20%</div>
+                                                <div class="text-muted">Avg Clean Rate</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="text-center">
+                                                <div class="h2 text-orange">2.9</div>
+                                                <div class="text-muted">Avg Deficiencies</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="text-center">
+                                                <div class="h2 text-red">13.3%</div>
+                                                <div class="text-muted">Avg Detention Rate</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Inspections Table -->
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Inspection Records</h3>
+                                    <div class="card-actions">
+                                        <div class="dropdown">
+                                            <a href="#" class="btn-action dropdown-toggle" data-bs-toggle="dropdown">
+                                                Sort by
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a class="dropdown-item" href="#" onclick="sortInspections('date')">Date (Newest First)</a>
+                                                <a class="dropdown-item" href="#" onclick="sortInspections('vessel')">Vessel Name</a>
+                                                <a class="dropdown-item" href="#" onclick="sortInspections('deficiencies')">Deficiency Count</a>
+                                                <a class="dropdown-item" href="#" onclick="sortInspections('outcome')">Outcome</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-vcenter card-table table-striped" id="inspectionTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Vessel</th>
+                                                <th>Type</th>
+                                                <th>Port</th>
+                                                <th>MOU</th>
+                                                <th>Deficiencies</th>
+                                                <th>Outcome</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="inspectionTableBody">
+                                            <!-- Sample rows with actual data -->
+                                            <tr>
+                                                <td>
+                                                    <div class="text-muted">Aug 11, 2025</div>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex py-1 align-items-center">
+                                                        <span class="avatar me-2" style="background-image: url(https://via.placeholder.com/32x32/6366f1/ffffff?text=SS)"></span>
+                                                        <div class="flex-fill">
+                                                            <div class="font-weight-medium">SOO SHIN</div>
+                                                            <div class="text-muted"><small>PC(T)C • SAMJOO</small></div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>PC(T)C</td>
+                                                <td>
+                                                    <div>Busan</div>
+                                                    <div class="text-muted"><small>Korea</small></div>
+                                                </td>
+                                                <td><span class="badge bg-info">Paris MoU</span></td>
+                                                <td>
+                                                    <span class="badge bg-warning">5</span>
+                                                </td>
+                                                <td>
+                                                    <span class="badge bg-warning">Deficiencies Found</span>
+                                                </td>
+                                                <td>
+                                                    <div class="btn-list flex-nowrap">
+                                                        <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#inspectionDetailModal" onclick="showInspectionDetail(30)">
+                                                            View
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="text-muted">Jul 10, 2025</div>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex py-1 align-items-center">
+                                                        <span class="avatar me-2" style="background-image: url(https://via.placeholder.com/32x32/f43f5e/ffffff?text=DG)"></span>
+                                                        <div class="flex-fill">
+                                                            <div class="font-weight-medium">DAEBO GLADSTONE</div>
+                                                            <div class="text-muted"><small>Bulk • DAEBO</small></div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>Bulk</td>
+                                                <td>
+                                                    <div>Singapore</div>
+                                                    <div class="text-muted"><small>Singapore</small></div>
+                                                </td>
+                                                <td><span class="badge bg-success">Tokyo MoU</span></td>
+                                                <td>
+                                                    <span class="badge bg-warning">2</span>
+                                                </td>
+                                                <td>
+                                                    <span class="badge bg-warning">Deficiencies Found</span>
+                                                </td>
+                                                <td>
+                                                    <div class="btn-list flex-nowrap">
+                                                        <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#inspectionDetailModal" onclick="showInspectionDetail(29)">
+                                                            View
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="table-danger">
+                                                <td>
+                                                    <div class="text-muted">May 26, 2025</div>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex py-1 align-items-center">
+                                                        <span class="avatar me-2" style="background-image: url(https://via.placeholder.com/32x32/8b5cf6/ffffff?text=YS)"></span>
+                                                        <div class="flex-fill">
+                                                            <div class="font-weight-medium">YOUNG SHIN</div>
+                                                            <div class="text-muted"><small>PC(T)C • SAMJOO</small></div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>PC(T)C</td>
+                                                <td>
+                                                    <div>Tokyo</div>
+                                                    <div class="text-muted"><small>Japan</small></div>
+                                                </td>
+                                                <td><span class="badge bg-success">Tokyo MoU</span></td>
+                                                <td>
+                                                    <span class="badge bg-danger">8</span>
+                                                </td>
+                                                <td>
+                                                    <span class="badge bg-danger">Detention</span>
+                                                </td>
+                                                <td>
+                                                    <div class="btn-list flex-nowrap">
+                                                        <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#inspectionDetailModal" onclick="showInspectionDetail(28)">
+                                                            View
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="table-success">
+                                                <td>
+                                                    <div class="text-muted">Feb 13, 2025</div>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex py-1 align-items-center">
+                                                        <span class="avatar me-2" style="background-image: url(https://via.placeholder.com/32x32/10b981/ffffff?text=SC)"></span>
+                                                        <div class="flex-fill">
+                                                            <div class="font-weight-medium">SJ COLOMBO</div>
+                                                            <div class="text-muted"><small>Bulk • SAMJOO</small></div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>Bulk</td>
+                                                <td>
+                                                    <div>Colombo</div>
+                                                    <div class="text-muted"><small>Sri Lanka</small></div>
+                                                </td>
+                                                <td><span class="badge bg-success">Tokyo MoU</span></td>
+                                                <td>
+                                                    <span class="badge bg-success">0</span>
+                                                </td>
+                                                <td>
+                                                    <span class="badge bg-success">Clean</span>
+                                                </td>
+                                                <td>
+                                                    <div class="btn-list flex-nowrap">
+                                                        <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#inspectionDetailModal" onclick="showInspectionDetail(21)">
+                                                            View
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="card-footer d-flex align-items-center">
+                                    <p class="m-0 text-muted">Showing <span id="resultCount">4</span> of <span>30</span> entries</p>
+                                    <ul class="pagination m-0 ms-auto" id="paginationControls">
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="m15 6l-6 6l6 6"/></svg>
+                                                prev
+                                            </a>
+                                        </li>
+                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">
+                                                next
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="m9 6l6 6l-6 6"/></svg>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Inspection Detail Modal -->
+    <div class="modal modal-blur fade" id="inspectionDetailModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Inspection Detail</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="inspectionDetailContent">
+                    <!-- Content will be populated by JavaScript -->
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+                        Close
+                    </a>
+                    <a href="#" class="btn btn-primary">
+                        Export Report
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
+    <!-- ApexCharts for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <!-- PSC Dashboard Components -->
+    <script src="../components/navigation.js"></script>
+    <script src="../components/kpi-cards.js"></script>
+    <script src="../components/data-filters.js"></script>
+    <script src="../components/chart-containers.js"></script>
+    <!-- PSC Dashboard JS - FIXED VERSION -->
+    <script src="../assets/js/psc-dashboard-fixed.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Initializing inspection page with real data...');
+            renderInspectionListLayout();
+        });
+    </script>
+</body>
+</html>

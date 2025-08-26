@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Risk Analysis - PSC Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css" rel="stylesheet"/>
+    <link href="../assets/css/psc-custom.css" rel="stylesheet"/>
+</head>
+<body>
+    <div class="page">
+        <!-- Navigation (same pattern) -->
+        <aside class="navbar navbar-vertical navbar-expand-lg" data-bs-theme="dark">
+            <div class="container-fluid">
+                <h1 class="navbar-brand navbar-brand-autodark">
+                    <a href="./dashboard.html">
+                        <img src="https://via.placeholder.com/32x32/6366f1/ffffff?text=PSC" width="110" height="32" alt="PSC" class="navbar-brand-image">
+                        PSC Dashboard
+                    </a>
+                </h1>
+                <div class="collapse navbar-collapse" id="sidebar-menu">
+                    <ul class="navbar-nav pt-lg-3">
+                        <li class="nav-item"><a class="nav-link" href="./dashboard.html"><span class="nav-link-title">Dashboard</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="./inspections.html"><span class="nav-link-title">Inspections (30)</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="./deficiencies.html"><span class="nav-link-title">Deficiencies (87)</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="./vessels.html"><span class="nav-link-title">Vessels (14)</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="./ports-map.html"><span class="nav-link-title">Ports Map</span></a></li>
+                        <li class="nav-item active"><a class="nav-link" href="./risk.html"><span class="nav-link-title">Risk Analysis</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="./reports.html"><span class="nav-link-title">Reports</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="./settings.html"><span class="nav-link-title">Settings</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+
+        <div class="page-wrapper">
+            <div class="page-header d-print-none">
+                <div class="container-xl">
+                    <div class="row g-2 align-items-center">
+                        <div class="col">
+                            <h2 class="page-title">Maritime Risk Assessment</h2>
+                            <div class="text-muted mt-1">Risk Score Algorithm: A×0.4 + H×0.4 + M×0.2 (0-100 scale) • Real-time vessel analysis</div>
+                        </div>
+                        <div class="col-auto ms-auto d-print-none">
+                            <div class="btn-list">
+                                <button type="button" class="btn btn-primary" id="refreshRiskData">
+                                    <i class="ti ti-refresh icon"></i>
+                                    Refresh Analysis
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary" id="exportRiskMatrix">
+                                    <i class="ti ti-file-export icon"></i>
+                                    Export Matrix
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-body">
+                <div class="container-xl">
+                    <div class="row row-deck row-cards">
+                        <!-- Risk Score Summary Cards -->
+                        <div class="col-6 col-sm-4 col-lg-2">
+                            <div class="card card-sm">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <span class="bg-red text-white avatar"><!-- Critical -->
+                                                <i class="ti ti-alert-triangle"></i>
+                                            </span>
+                                        </div>
+                                        <div class="col">
+                                            <div class="font-weight-medium" id="criticalRiskCount">0</div>
+                                            <div class="text-muted">Critical (81-100)</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-4 col-lg-2">
+                            <div class="card card-sm">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <span class="bg-orange text-white avatar"><!-- High -->
+                                                <i class="ti ti-exclamation-mark"></i>
+                                            </span>
+                                        </div>
+                                        <div class="col">
+                                            <div class="font-weight-medium" id="highRiskCount">0</div>
+                                            <div class="text-muted">High (61-80)</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-4 col-lg-2">
+                            <div class="card card-sm">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <span class="bg-warning text-white avatar"><!-- Elevated -->
+                                                <i class="ti ti-minus"></i>
+                                            </span>
+                                        </div>
+                                        <div class="col">
+                                            <div class="font-weight-medium" id="elevatedRiskCount">0</div>
+                                            <div class="text-muted">Elevated (41-60)</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-4 col-lg-2">
+                            <div class="card card-sm">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <span class="bg-yellow text-white avatar"><!-- Moderate -->
+                                                <i class="ti ti-info-circle"></i>
+                                            </span>
+                                        </div>
+                                        <div class="col">
+                                            <div class="font-weight-medium" id="moderateRiskCount">0</div>
+                                            <div class="text-muted">Moderate (21-40)</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-4 col-lg-2">
+                            <div class="card card-sm">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <span class="bg-success text-white avatar"><!-- Low -->
+                                                <i class="ti ti-check"></i>
+                                            </span>
+                                        </div>
+                                        <div class="col">
+                                            <div class="font-weight-medium" id="lowRiskCount">0</div>
+                                            <div class="text-muted">Low (0-20)</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-4 col-lg-2">
+                            <div class="card card-sm">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <span class="bg-primary text-white avatar"><!-- Fleet Avg -->
+                                                <i class="ti ti-calculator"></i>
+                                            </span>
+                                        </div>
+                                        <div class="col">
+                                            <div class="font-weight-medium" id="avgRiskScore">0</div>
+                                            <div class="text-muted">Fleet Average</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 5x5 Risk Matrix Heatmap -->
+                        <div class="col-lg-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">5×5 Risk Assessment Matrix</h3>
+                                    <div class="card-actions">
+                                        <div class="dropdown">
+                                            <a href="#" class="btn-action dropdown-toggle" data-bs-toggle="dropdown">
+                                                <i class="ti ti-dots-vertical"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a href="#" class="dropdown-item" id="showMatrixLegend">Show Legend</a>
+                                                <a href="#" class="dropdown-item" id="recalculateMatrix">Recalculate</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div id="riskMatrixHeatmap"></div>
+                                    <div class="mt-3">
+                                        <div class="row text-center">
+                                            <div class="col">
+                                                <small class="text-muted">X-Axis: Probability (Historical Deficiency Rate)</small><br>
+                                                <small class="text-muted">Y-Axis: Seriousness (Age + MOU Severity)</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Top Risk Vessels -->
+                        <div class="col-lg-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Top Risk Vessels</h3>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="list-group list-group-flush" id="topRiskVessels">
+                                        <!-- Dynamically populated -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Vessel Risk Score Ranking -->
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Fleet Risk Profile Ranking</h3>
+                                    <div class="card-actions">
+                                        <div class="dropdown">
+                                            <a href="#" class="btn-action dropdown-toggle" data-bs-toggle="dropdown">
+                                                <i class="ti ti-filter"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a href="#" class="dropdown-item" data-filter="all">All Vessels</a>
+                                                <a href="#" class="dropdown-item" data-filter="high">High Risk Only</a>
+                                                <a href="#" class="dropdown-item" data-filter="medium">Medium Risk Only</a>
+                                                <a href="#" class="dropdown-item" data-filter="low">Low Risk Only</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-vcenter table-mobile-md card-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Rank</th>
+                                                    <th>Vessel</th>
+                                                    <th>Type</th>
+                                                    <th>Risk Score</th>
+                                                    <th>Age Factor (A)</th>
+                                                    <th>History Factor (H)</th>
+                                                    <th>MOU Factor (M)</th>
+                                                    <th>Risk Level</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="vesselRiskRanking">
+                                                <!-- Dynamically populated -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Risk Scenario Simulator -->
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">What-If Scenario Simulator</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="mb-3">
+                                                <label class="form-label">Select Vessel</label>
+                                                <select class="form-select" id="scenarioVessel">
+                                                    <option value="">Choose vessel...</option>
+                                                    <!-- Dynamically populated -->
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Scenario Type</label>
+                                                <select class="form-select" id="scenarioType">
+                                                    <option value="training">Training Improvement (-20% H Factor)</option>
+                                                    <option value="maintenance">Maintenance Enhancement (-30% H Factor)</option>
+                                                    <option value="regulatory">Regulatory Changes (+/-15% M Factor)</option>
+                                                    <option value="age">Time Progression (+1 year Age)</option>
+                                                </select>
+                                            </div>
+                                            <button type="button" class="btn btn-primary" id="runScenario">
+                                                <i class="ti ti-play"></i>
+                                                Run Simulation
+                                            </button>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div id="scenarioResults" style="display: none;">
+                                                <div class="card bg-light">
+                                                    <div class="card-body">
+                                                        <h4>Simulation Results</h4>
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="h3 mb-1" id="currentRiskScore">0</div>
+                                                                <div class="text-muted">Current Risk Score</div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="h3 mb-1" id="projectedRiskScore">0</div>
+                                                                <div class="text-muted">Projected Risk Score</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mt-3">
+                                                            <div class="progress progress-sm">
+                                                                <div class="progress-bar" id="riskChangeBar" style="width: 0%"></div>
+                                                            </div>
+                                                            <div class="mt-1">
+                                                                <span class="badge" id="riskChangeIndicator">No Change</span>
+                                                                <span class="text-muted ms-2" id="riskChangeText"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mt-3" id="scenarioRecommendations">
+                                                            <!-- Recommendations will be populated here -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.44.0/dist/apexcharts.min.js"></script>
+    <script src="../assets/js/psc-dashboard.js"></script>
+    <script>
+        // Initialize Risk Analysis Page
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof PSCRiskAnalysis !== 'undefined') {
+                PSCRiskAnalysis.init();
+                
+                // Setup additional event handlers
+                setupRiskAnalysisEventHandlers();
+            }
+        });
+        
+        function setupRiskAnalysisEventHandlers() {
+            // Refresh Risk Data button
+            const refreshBtn = document.getElementById('refreshRiskData');
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', function() {
+                    console.log('Refreshing risk analysis data...');
+                    PSCRiskAnalysis.updateRiskSummaryCards();
+                    PSCRiskAnalysis.renderRiskMatrix();
+                    PSCRiskAnalysis.renderTopRiskVessels();
+                    PSCRiskAnalysis.renderVesselRankingTable();
+                });
+            }
+            
+            // Export Risk Matrix button
+            const exportBtn = document.getElementById('exportRiskMatrix');
+            if (exportBtn) {
+                exportBtn.addEventListener('click', function() {
+                    alert('Risk matrix export functionality would be implemented here.\nFormats: PNG, PDF, Excel');
+                });
+            }
+            
+            // Matrix legend and recalculate buttons
+            const legendBtn = document.getElementById('showMatrixLegend');
+            const recalcBtn = document.getElementById('recalculateMatrix');
+            
+            if (legendBtn) {
+                legendBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showRiskMatrixLegend();
+                });
+            }
+            
+            if (recalcBtn) {
+                recalcBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    PSCRiskAnalysis.renderRiskMatrix();
+                    console.log('Risk matrix recalculated');
+                });
+            }
+            
+            // Vessel risk ranking filter buttons
+            const filterButtons = document.querySelectorAll('[data-filter]');
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const filter = this.getAttribute('data-filter');
+                    filterVesselRanking(filter);
+                });
+            });
+        }
+        
+        function showRiskMatrixLegend() {
+            const legendHTML = `
+                <div class="modal fade" id="matrixLegendModal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">5×5 Risk Matrix Legend</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-12 mb-3">
+                                        <h6>Risk Rating Colors</h6>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="avatar avatar-sm me-3" style="background-color: #10b981;">1-5</div>
+                                            <div><strong>Green Zone</strong> - Acceptable Risk (Routine monitoring)</div>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="avatar avatar-sm me-3" style="background-color: #f59e0b;">6-15</div>
+                                            <div><strong>Amber Zone</strong> - Moderate Risk (Enhanced monitoring required)</div>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="avatar avatar-sm me-3" style="background-color: #dc2626;">16-25</div>
+                                            <div><strong>Red Zone</strong> - Unacceptable Risk (Immediate action required)</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <h6>Probability Grades (X-Axis)</h6>
+                                        <ul class="list-unstyled">
+                                            <li><strong>P1:</strong> Very Low - No deficiencies (0 avg)</li>
+                                            <li><strong>P2:</strong> Low - Minimal deficiencies (1 avg)</li>
+                                            <li><strong>P3:</strong> Medium - Some deficiencies (2-4 avg)</li>
+                                            <li><strong>P4:</strong> High - Many deficiencies (5-7 avg)</li>
+                                            <li><strong>P5:</strong> Very High - Critical deficiencies (8+ avg or detention)</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-12">
+                                        <h6>Seriousness Grades (Y-Axis)</h6>
+                                        <ul class="list-unstyled">
+                                            <li><strong>S1:</strong> Negligible - Young vessel, good flag</li>
+                                            <li><strong>S2:</strong> Minor - Low age/flag risk</li>
+                                            <li><strong>S3:</strong> Moderate - Average age/flag performance</li>
+                                            <li><strong>S4:</strong> Major - Aging vessel or poor flag</li>
+                                            <li><strong>S5:</strong> Critical - Very old vessel and/or high-risk flag</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', legendHTML);
+            const modal = new bootstrap.Modal(document.getElementById('matrixLegendModal'));
+            modal.show();
+            
+            document.getElementById('matrixLegendModal').addEventListener('hidden.bs.modal', function() {
+                this.remove();
+            });
+        }
+        
+        function filterVesselRanking(filter) {
+            const tbody = document.getElementById('vesselRiskRanking');
+            const rows = tbody.querySelectorAll('tr');
+            
+            rows.forEach(row => {
+                const riskLevel = row.querySelector('.badge').textContent.toLowerCase();
+                
+                if (filter === 'all') {
+                    row.style.display = '';
+                } else if (filter === 'high' && (riskLevel.includes('critical') || riskLevel.includes('high'))) {
+                    row.style.display = '';
+                } else if (filter === 'medium' && (riskLevel.includes('elevated') || riskLevel.includes('moderate'))) {
+                    row.style.display = '';
+                } else if (filter === 'low' && riskLevel.includes('low')) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

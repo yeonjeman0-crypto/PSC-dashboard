@@ -1,0 +1,102 @@
+{
+  "schema_version": "v1.0.0",
+  "generated_at": "2025-08-25T10:30:00.000Z",
+  "data_source": "Copied from 04-action-codes.json",
+  "total_action_codes": 10,
+  "action_codes": [
+    {
+      "code": "10",
+      "description": "Deficiency rectified",
+      "category": "rectified",
+      "urgency": "completed",
+      "timeframe_hours": 0,
+      "vessel_impact": "none",
+      "detention_related": false
+    },
+    {
+      "code": "15",
+      "description": "Rectify deficiency at next port",
+      "category": "next_port",
+      "urgency": "medium",
+      "timeframe_hours": 240,
+      "vessel_impact": "operational_constraint",
+      "detention_related": false
+    },
+    {
+      "code": "16",
+      "description": "Rectify deficiency within 14 days",
+      "category": "time_bound",
+      "urgency": "high",
+      "timeframe_hours": 336,
+      "vessel_impact": "operational_monitoring",
+      "detention_related": false
+    },
+    {
+      "code": "17",
+      "description": "Rectify deficiency before departure",
+      "category": "before_departure",
+      "urgency": "critical",
+      "timeframe_hours": 24,
+      "vessel_impact": "departure_restriction",
+      "detention_related": false
+    },
+    {
+      "code": "18",
+      "description": "Rectify deficiency within 3 months",
+      "category": "time_bound",
+      "urgency": "medium",
+      "timeframe_hours": 2160,
+      "vessel_impact": "minimal",
+      "detention_related": false
+    },
+    {
+      "code": "30",
+      "description": "Detainable deficiency",
+      "category": "detention",
+      "urgency": "critical",
+      "timeframe_hours": 0,
+      "vessel_impact": "detention",
+      "detention_related": true
+    },
+    {
+      "code": "46",
+      "description": "Rectify detainable deficiency at agreed repair port",
+      "category": "detention",
+      "urgency": "critical", 
+      "timeframe_hours": 168,
+      "vessel_impact": "conditional_sailing",
+      "detention_related": true
+    },
+    {
+      "code": "48",
+      "description": "As in the agreed flag state condition",
+      "category": "flag_state",
+      "urgency": "medium",
+      "timeframe_hours": 720,
+      "vessel_impact": "documentation_required",
+      "detention_related": false
+    },
+    {
+      "code": "49",
+      "description": "As in the agreed rectification action plan (RAP)",
+      "category": "action_plan",
+      "urgency": "medium",
+      "timeframe_hours": 1440,
+      "vessel_impact": "plan_compliance_required",
+      "detention_related": false
+    },
+    {
+      "code": "99",
+      "description": "Others (specify in clear text)",
+      "category": "other",
+      "urgency": "variable",
+      "timeframe_hours": "variable",
+      "vessel_impact": "variable",
+      "detention_related": false
+    }
+  ],
+  "validation": {
+    "record_count": 10,
+    "data_quality": "A+"
+  }
+}

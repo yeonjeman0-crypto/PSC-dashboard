@@ -1,0 +1,417 @@
+{
+  "report_title": "Maritime Fleet Risk Assessment Report",
+  "generated_at": "2025-08-26T09:05:07.709704",
+  "fleet_overview": {
+    "total_vessels": 11,
+    "average_risk_score": 42.8,
+    "risk_distribution": {
+      "LOW": 2,
+      "MEDIUM": 5,
+      "HIGH": 2,
+      "CRITICAL": 2
+    },
+    "high_risk_vessels": 4,
+    "critical_risk_vessels": 2
+  },
+  "top_risk_vessels": [
+    {
+      "vessel_name": "YOUNG SHIN",
+      "risk_score": 77.7,
+      "risk_category": "CRITICAL",
+      "age_years": 33.5,
+      "vessel_type": "PC(T)C"
+    },
+    {
+      "vessel_name": "GMT ASTRO",
+      "risk_score": 76.3,
+      "risk_category": "CRITICAL",
+      "age_years": 39.3,
+      "vessel_type": "PC(T)C"
+    },
+    {
+      "vessel_name": "SEA COEN",
+      "risk_score": 65.0,
+      "risk_category": "HIGH",
+      "age_years": 20.1,
+      "vessel_type": "Bulk"
+    },
+    {
+      "vessel_name": "HAE SHIN",
+      "risk_score": 55.1,
+      "risk_category": "HIGH",
+      "age_years": 32.0,
+      "vessel_type": "PC(T)C"
+    },
+    {
+      "vessel_name": "SANG SHIN",
+      "risk_score": 39.5,
+      "risk_category": "MEDIUM",
+      "age_years": 31.5,
+      "vessel_type": "PC(T)C"
+    }
+  ],
+  "risk_matrix_summary": {
+    "total_vessels_in_matrix": 11,
+    "high_risk_cells": 4,
+    "vessels_in_high_risk": 1.0
+  },
+  "vessel_details": [
+    {
+      "vessel_name": "AH SHIN",
+      "risk_score": 29.9,
+      "risk_category": "MEDIUM",
+      "factor_breakdown": {
+        "age_factor": 43.5,
+        "history_factor": 6.4,
+        "mou_factor": 49.5,
+        "age_weight": 0.4,
+        "history_weight": 0.4,
+        "mou_weight": 0.2
+      },
+      "vessel_info": {
+        "age_years": 26.6,
+        "vessel_type": "PC(T)C",
+        "flag_state": "Panama",
+        "built_year": 1999,
+        "dwt": 21503
+      }
+    },
+    {
+      "vessel_name": "SANG SHIN",
+      "risk_score": 39.5,
+      "risk_category": "MEDIUM",
+      "factor_breakdown": {
+        "age_factor": 61.9,
+        "history_factor": 12.0,
+        "mou_factor": 49.5,
+        "age_weight": 0.4,
+        "history_weight": 0.4,
+        "mou_weight": 0.2
+      },
+      "vessel_info": {
+        "age_years": 31.5,
+        "vessel_type": "PC(T)C",
+        "flag_state": "Panama",
+        "built_year": 1994,
+        "dwt": 16178
+      }
+    },
+    {
+      "vessel_name": "YOUNG SHIN",
+      "risk_score": 77.7,
+      "risk_category": "CRITICAL",
+      "factor_breakdown": {
+        "age_factor": 69.4,
+        "history_factor": 100,
+        "mou_factor": 49.5,
+        "age_weight": 0.4,
+        "history_weight": 0.4,
+        "mou_weight": 0.2
+      },
+      "vessel_info": {
+        "age_years": 33.5,
+        "vessel_type": "PC(T)C",
+        "flag_state": "Panama",
+        "built_year": 1992,
+        "dwt": 14274
+      }
+    },
+    {
+      "vessel_name": "HAE SHIN",
+      "risk_score": 55.1,
+      "risk_category": "HIGH",
+      "factor_breakdown": {
+        "age_factor": 63.8,
+        "history_factor": 49.3,
+        "mou_factor": 49.5,
+        "age_weight": 0.4,
+        "history_weight": 0.4,
+        "mou_weight": 0.2
+      },
+      "vessel_info": {
+        "age_years": 32.0,
+        "vessel_type": "PC(T)C",
+        "flag_state": "Panama",
+        "built_year": 1993,
+        "dwt": 17183
+      }
+    },
+    {
+      "vessel_name": "GMT ASTRO",
+      "risk_score": 76.3,
+      "risk_category": "CRITICAL",
+      "factor_breakdown": {
+        "age_factor": 100.0,
+        "history_factor": 66.0,
+        "mou_factor": 49.5,
+        "age_weight": 0.4,
+        "history_weight": 0.4,
+        "mou_weight": 0.2
+      },
+      "vessel_info": {
+        "age_years": 39.3,
+        "vessel_type": "PC(T)C",
+        "flag_state": "Panama",
+        "built_year": 1986,
+        "dwt": 16101
+      }
+    },
+    {
+      "vessel_name": "G POSEIDON",
+      "risk_score": 26.5,
+      "risk_category": "MEDIUM",
+      "factor_breakdown": {
+        "age_factor": 25.5,
+        "history_factor": 16.0,
+        "mou_factor": 49.5,
+        "age_weight": 0.4,
+        "history_weight": 0.4,
+        "mou_weight": 0.2
+      },
+      "vessel_info": {
+        "age_years": 15.2,
+        "vessel_type": "PC(T)C",
+        "flag_state": "Panama",
+        "built_year": 2010,
+        "dwt": 28365
+      }
+    },
+    {
+      "vessel_name": "SOO SHIN",
+      "risk_score": 32.5,
+      "risk_category": "MEDIUM",
+      "factor_breakdown": {
+        "age_factor": 43.9,
+        "history_factor": 12.5,
+        "mou_factor": 49.5,
+        "age_weight": 0.4,
+        "history_weight": 0.4,
+        "mou_weight": 0.2
+      },
+      "vessel_info": {
+        "age_years": 26.7,
+        "vessel_type": "PC(T)C",
+        "flag_state": "Panama",
+        "built_year": 1998,
+        "dwt": 13680
+      }
+    },
+    {
+      "vessel_name": "SEA COEN",
+      "risk_score": 65.0,
+      "risk_category": "HIGH",
+      "factor_breakdown": {
+        "age_factor": 37.8,
+        "history_factor": 100,
+        "mou_factor": 49.5,
+        "age_weight": 0.4,
+        "history_weight": 0.4,
+        "mou_weight": 0.2
+      },
+      "vessel_info": {
+        "age_years": 20.1,
+        "vessel_type": "Bulk",
+        "flag_state": "Marshall Islands",
+        "built_year": 2005,
+        "dwt": 176269
+      }
+    },
+    {
+      "vessel_name": "SJ BUSAN",
+      "risk_score": 17.9,
+      "risk_category": "LOW",
+      "factor_breakdown": {
+        "age_factor": 26.5,
+        "history_factor": 0,
+        "mou_factor": 36.5,
+        "age_weight": 0.4,
+        "history_weight": 0.4,
+        "mou_weight": 0.2
+      },
+      "vessel_info": {
+        "age_years": 15.6,
+        "vessel_type": "Bulk",
+        "flag_state": "Korea",
+        "built_year": 2010,
+        "dwt": 55940
+      }
+    },
+    {
+      "vessel_name": "SJ COLOMBO",
+      "risk_score": 17.9,
+      "risk_category": "LOW",
+      "factor_breakdown": {
+        "age_factor": 26.5,
+        "history_factor": 0,
+        "mou_factor": 36.5,
+        "age_weight": 0.4,
+        "history_weight": 0.4,
+        "mou_weight": 0.2
+      },
+      "vessel_info": {
+        "age_years": 15.6,
+        "vessel_type": "Bulk",
+        "flag_state": "Korea",
+        "built_year": 2010,
+        "dwt": 55989
+      }
+    },
+    {
+      "vessel_name": "SJ ASIA",
+      "risk_score": 32.0,
+      "risk_category": "MEDIUM",
+      "factor_breakdown": {
+        "age_factor": 37.8,
+        "history_factor": 24.0,
+        "mou_factor": 36.5,
+        "age_weight": 0.4,
+        "history_weight": 0.4,
+        "mou_weight": 0.2
+      },
+      "vessel_info": {
+        "age_years": 20.1,
+        "vessel_type": "Bulk",
+        "flag_state": "Korea",
+        "built_year": 2005,
+        "dwt": 174674
+      }
+    }
+  ],
+  "risk_matrix": {
+    "matrix": [
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        2.0,
+        0.0
+      ],
+      [
+        0.0,
+        2.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        2.0,
+        2.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "risk_levels": [
+      [
+        5.0,
+        10.0,
+        15.0,
+        20.0,
+        25.0
+      ],
+      [
+        4.0,
+        8.0,
+        12.0,
+        16.0,
+        20.0
+      ],
+      [
+        3.0,
+        6.0,
+        9.0,
+        12.0,
+        15.0
+      ],
+      [
+        2.0,
+        4.0,
+        6.0,
+        8.0,
+        10.0
+      ],
+      [
+        1.0,
+        2.0,
+        3.0,
+        4.0,
+        5.0
+      ]
+    ],
+    "probability_levels": [
+      "Very Low",
+      "Low",
+      "Medium",
+      "High",
+      "Very High"
+    ],
+    "severity_levels": [
+      "Insignificant",
+      "Minor",
+      "Moderate",
+      "Major",
+      "Catastrophic"
+    ],
+    "vessel_distribution": {
+      "0_0": [],
+      "0_1": [],
+      "0_2": [],
+      "0_3": [
+        "SEA COEN"
+      ],
+      "0_4": [],
+      "1_0": [],
+      "1_1": [],
+      "1_2": [],
+      "1_3": [],
+      "1_4": [],
+      "2_0": [],
+      "2_1": [
+        "SJ ASIA"
+      ],
+      "2_2": [],
+      "2_3": [
+        "YOUNG SHIN",
+        "GMT ASTRO"
+      ],
+      "2_4": [],
+      "3_0": [],
+      "3_1": [
+        "AH SHIN",
+        "G POSEIDON"
+      ],
+      "3_2": [
+        "HAE SHIN"
+      ],
+      "3_3": [],
+      "3_4": [],
+      "4_0": [
+        "SJ BUSAN",
+        "SJ COLOMBO"
+      ],
+      "4_1": [
+        "SANG SHIN",
+        "SOO SHIN"
+      ],
+      "4_2": [],
+      "4_3": [],
+      "4_4": []
+    },
+    "total_vessels": 11,
+    "generated_at": "2025-08-26T09:05:07.709704"
+  }
+}
